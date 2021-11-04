@@ -7,7 +7,7 @@ const CompanySchema = Schema(
     {
         name: {
             type: String,
-            require: true,
+            required: true,
             validate: {
                 validator: Libs.Validators.isValidCompanyName,
                 message: Libs.Errors.TextValidation.InvalidCompanyName,
@@ -15,7 +15,7 @@ const CompanySchema = Schema(
         },
         logo: {
             type: String,
-            require: false,
+            required: false,
             validate: {
                 validator: Libs.Validators.isValidUrl,
                 message: Libs.Errors.InvalidUrl,
@@ -23,7 +23,7 @@ const CompanySchema = Schema(
         }
     },
     {
-        collection: 'Companies',
+        collection: 'companies',
         versionKey: false,
         timestamps: true
     }
@@ -36,45 +36,43 @@ CompanySchema.statics.createCompany = function (companyObj) {
 };
 
 CompanySchema.statics.deleteCompany = function (companyId) {
-    return this.deleteOne(companyId);
+    return this.deleteOne({ _id: companyId });
 }
 
 CompanySchema.statics.getById = function (companyId) {
     return this.findById(companyId)
 };
 
-CompanySchema.statics.updateLogo = async function (companyId, newLogo) {
+CompanySchema.statics.getCompanies = function () {
+    return this.find({}).exec();
+}
+
+CompanySchema.statics.updateCompany = async function (companyId, newName, newLogo) {
     const companyObj = await this.getById(companyId);
+    let setObject = {};
 
     if (!companyObj) {
-        throw new Error(Libs.Errors.CompanyValidation.CompanyIdDoesNotExists);
+        throw new Error(Libs.Errors.CompanyValidation.CompanyDoesNotExists);
     }
 
-    if (!Libs.Validators.isValidUrl(newLogo)) {
-        throw new Error(Libs.Errors.InvalidUrl);
+    if (newName) {
+        if (Libs.Validators.isValidCompanyName(newName)) {
+            setObject.name = newName;
+        } else {
+            throw new Error(Libs.Errors.TextValidation.InvalidCompanyName);
+        }
+    }
+    if (newLogo) {
+        if (Libs.Validators.isValidUrl(newLogo)) {
+            setObject.logo = newLogo;
+        } else {
+            throw new Error(Libs.Errors.InvalidUrl);
+        }
     }
 
     return this.findOneAndUpdate(
         { _id: companyId },
-        { $set: { logo: newLogo } },
-        { new: true }
-    )
-};
-
-CompanySchema.statics.updateName = async function (companyId, newName) {
-    const companyObj = await this.getById(companyId);
-
-    if (!companyObj) {
-        throw new Error(Libs.Errors.CompanyValidation.CompanyIdDoesNotExists);
-    }
-
-    if (!Libs.Validators.isValidCompanyName(newName)) {
-        throw new Error(Libs.Errors.TextValidation.InvalidCompanyName);
-    }
-
-    return this.findOneAndUpdate(
-        { _id: companyId },
-        { $set: { logo: newLogo } },
+        { $set: setObject },
         { new: true }
     )
 };

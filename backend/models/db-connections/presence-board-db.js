@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
 
-const DB_URL = 'mongodb://localhost/presence-board';
+// const DB_URL = 'mongodb://localhost:27017/presence-board';
+const DB_URL = "mongodb+srv://Lidor:1234@cluster0.bphmz.mongodb.net/PresenceBoard?retryWrites=true&w=majority";
 const ConnectionOptions = {
     socketTimeoutMS: 0,
     connectTimeoutMS: 0,
     useNewUrlParser: true,
-    useInifieldTopology: true,
+     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 120000,
 };
 let DBConnection = mongoose.createConnection(DB_URL, ConnectionOptions);
