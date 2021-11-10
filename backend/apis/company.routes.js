@@ -18,7 +18,7 @@ companyRouter.get('/:companyId([A-Fa-f0-9]{24})', getCompany);
 
 function responseError(response, errMessage) {
     let status = 500;
-
+    console.log("ERROR");
     switch (errMessage) {
         case Libs.Errors.CompanyValidation.CompanyDoesNotExists:
             status = 404;    
@@ -72,6 +72,7 @@ async function editCompany(req, res) {
 
 async function getCompanies(req, res) {
     try {
+        console.log('retrieving comps');
         const companies = await CompaniesModel.getCompanies();
         return res.send(companies);
     } catch (err) {

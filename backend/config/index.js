@@ -2,7 +2,7 @@ const devConfig = require('./dev');
 const prodConfig = require('./prod');
 
 const environment = process.env.ENVIRONMENT;
-
+console.log(environment);
 function tryRequire(env) {
     try {
         return require(`./${env}`);
@@ -15,6 +15,6 @@ function tryRequire(env) {
     }
 }
 
-const envConfig = tryRequire(environment);
+const envConfig = tryRequire('./prod');
 
 module.exports = envConfig;

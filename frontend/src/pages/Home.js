@@ -1,97 +1,47 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import companyService from '../services/companyService';
+import { CompanyContext } from '../contexts/CompanyContext';
+import Select from "react-dropdown-select";
 
-import { loadReviews, addReview } from '../actions/reviewActions.js';
-import { loadUsers } from '../actions/userActions.js';
-import { Link } from 'react-router-dom';
 
-class Home extends Component {
-  state = {
-    reviewToEdit: {
-      txt: '',
-      aboutUserId: ''
-    }
-  };
-  componentDidMount() {
-    this.props.loadReviews();
-    this.props.loadUsers();
+
+export const Home = (props) => {
+  const { loggedCompany } = useContext(CompanyContext)
+  let history = useHistory();
+
+  const retrieveComps = async () => {
+    const comps = await companyService.getCompanies()
+    console.log(comps);
   }
 
-  handleChange = ev => {
-    const { name, value } = ev.target;
-    this.setState(prevState => ({
-      reviewToEdit: {
-        ...prevState.reviewToEdit,
-        [name]: value
-      }
-    }));
-  };
+  const onLogin = () => {
+    history.push('/login')
+  }
 
-  addReview = ev => {
-    ev.preventDefault();
-    this.props.addReview(this.state.reviewToEdit);
-    this.setState({ reviewToEdit: { txt: '', aboutUserId: '' } });
-  };
-
-  render() {
-    return (
-      <div className="home">
-        {this.props.reviews && <ul>
-          {this.props.reviews.map(review => (
-            <li key={review._id}>
-              <h3>{review.txt}</h3>
-              <p>
-                <Link to={`user/${review.aboutUser._id}`}>
-                  About {review.aboutUser.username}
-                </Link>
-              </p>
-              <p>
-                <Link to={`user/${review.byUser._id}`}>
-                  By {review.byUser.username}
-                </Link>
-              </p>
-              <hr />
-            </li>
-          ))}
-        </ul>}
-        {this.props.users && this.props.loggedInUser &&
-          <form onSubmit={this.addReview}>
-            <select
-              onChange={this.handleChange}
-              value={this.state.reviewToEdit.aboutUserId}
-              name="aboutUserId"
-            >
-              <option value="">Select User</option>
-              {this.props.users.map(user => (
-                <option key={user._id} value={user._id}>
-                  {user.username}
-                </option>
-              ))}
-            </select>
-            <textarea
-              name="txt"
-              onChange={this.handleChange}
-              value={this.state.reviewToEdit.txt}
-            ></textarea>
-            <button>Submit</button>
-          </form>}
-        <hr />
+  const onSignup = () => {
+    history.push('/login?newCompany=1')
+  }
+  return (
+    <>
+      <div>
+        <h1>Welcome to Presence Board</h1>
+        <h2>Here you can see who is prescense in a bit of a second</h2>
       </div>
-    );
-  }
+      
+      <div className='cta-container'>
+        <div>
+          <h2>Your company is registered?</h2>
+          <button onClick={onLogin} >Log in now!</button>
+        </div>
+        <div>
+          <h2>New here? add your company</h2>
+          <button onClick={onSignup} >Register Now!</button>
+        </div>
+      </div>
+      <div>HELLO</div>
+      <button onClick={retrieveComps}>RETRIEVE</button>
+    </>
+  )
 }
 
-const mapStateToProps = state => {
-  return {
-    reviews: state.review.reviews,
-    users: state.user.users,
-    loggedInUser: state.user.loggedInUser
-  };
-};
-const mapDispatchToProps = {
-  loadReviews,
-  loadUsers,
-  addReview
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);

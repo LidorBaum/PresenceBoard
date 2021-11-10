@@ -1,5 +1,5 @@
 function isValidCompanyName(companyName) {
-    console.log(companyName)
+    console.log(companyName, 'validity check')
     return true;
 }
 
