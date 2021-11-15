@@ -1,0 +1,62 @@
+.board-logo-img{
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+}
+.board-container{
+    width: 100vh;
+
+    .employee-list {
+        display: flex;
+        justify-content: flex-start;
+        align-content: flex-start;
+        flex-wrap: wrap;
+        padding: 20px;
+        align-items: center;
+        width: 1000px;
+        margin: 0 auto;
+        .opacity{
+            opacity: 0%;
+            transition: all 1.2s;
+        }
+        .employee-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 5px;
+            padding: 5px;
+            border: 3px solid #004346;
+            text-align: center;
+            width: 200px;
+            height: 280px;
+            box-sizing: border-box;
+            flex-basis: 23.5%;
+            border-radius: 15px;
+            align-items: center;
+            .click-loader{
+                position: absolute;
+                top: 50%;
+                z-index: 2
+            }
+            .employee-card-img {
+                width: 180px;
+                height: 180px;
+                object-fit: cover;
+                border-radius: 15px;
+                justify-self: center;
+                transition: all 2.2s ;
+
+            }
+            .gray{
+                filter: grayscale(100%);
+                transition: all 2.2s ;
+            }
+            p{
+                margin-bottom: 3px
+            }
+           
+        
+        }
+    }
+}

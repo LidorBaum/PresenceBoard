@@ -17,7 +17,7 @@ export const LoginSignup = (props) => {
   const [companies, setCompanies] = useState(null)
 
   const [msg, setMsg] = useState('')
-  const [loginCred, setLogin] = useState({ companyName: '', password: '' })
+  const [loginCred, setLogin] = useState({ companyId: '', password: '' })
   const [signupCred, setSignup] = useState({ companyName: '', password: '' })
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const LoginSignup = (props) => {
 
     const searchQuery = new URLSearchParams(props.location.search);
     if (searchQuery.get('newCompany')) signupButton.current.click()
-  }, [props.location.search])
+  }, [])
 
   useEffect(() =>{
     const getCompanies= async () => {
@@ -66,26 +66,29 @@ export const LoginSignup = (props) => {
 
   const doLogin = async ev => {
     ev.preventDefault()
-    // const { email, password } = loginCred
-    // if (!email || !password) return setMsg('missign email/password')
-    // const user = await userService.login(loginCred)
-    // setLoggedUser(user)
+     console.log('doLogin');
+    const {companyId, password} = loginCred
+    console.log(loginCred);
+    if(!companyId || !password) return console.log('missing creds');
+    const company = await companyService.loginCompany({companyId: companyId, password})
+    setLoggedCompany(company)
+    console.log('signedupSucces');
     // history.push('/')
   }
   const doSignup = async ev => {
     ev.preventDefault()
     console.log('check');
     const {companyName, password} = signupCred
-    if(!companyName || !password) console.log('missing creds');
+    if(!companyName || !password) return console.log('missing creds');
     const company = await companyService.signupCompany({name: companyName, password})
     setLoggedCompany(company)
     console.log('signedupSucces');
-    history.push('/')
+    // history.push('/')
   }
 
   const onSelectCompany = (value) => {
     const chosenCompany = value[0]
-    setLogin(prevLogin => ({ ...prevLogin, companyName: chosenCompany.value }))
+    setLogin(prevLogin => ({ ...prevLogin, companyId: chosenCompany.value }))
   }
 
   return (

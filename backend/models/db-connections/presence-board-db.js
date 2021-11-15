@@ -8,7 +8,7 @@ const ConnectionOptions = {
     connectTimeoutMS: 0,
     useNewUrlParser: true,
      useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 120000,
+    serverSelectionTimeoutMS: 120000
 };
 let DBConnection = mongoose.createConnection(DB_URL, ConnectionOptions);
 

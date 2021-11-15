@@ -8,6 +8,9 @@ const BASE_URL = process.env.NODE_ENV === 'production'
 var axios = Axios.create({
     withCredentials: true
 });
+axios.defaults.withCredentials = true;
+
+
 
 export default {
     get(endpoint, data) {

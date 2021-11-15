@@ -27,12 +27,12 @@ function updateCompany(companyObj) {
 }
 
 async function loginCompany(loginCred) {
-    const user = await httpService.post('auth/login', loginCred)
-    return _handleLoginCompany(user)
+    const company = await httpService.post('auth/login', loginCred)
+    return _handleLoginCompany(company)
 }
 async function signupCompany(signupCred) {
-    const user = await httpService.post('auth/signup', signupCred)
-    return _handleLoginCompany(user)
+    const company = await httpService.post('auth/signup', signupCred)
+    return _handleLoginCompany(company)
 }
 async function logoutCompany() {
     await httpService.post('auth/logout');

@@ -8,6 +8,8 @@ const CompanySchema = Schema(
         name: {
             type: String,
             required: true,
+            unique: true,
+            index: true,
             validate: {
                 validator: Libs.Validators.isValidCompanyName,
                 message: Libs.Errors.TextValidation.InvalidCompanyName,
@@ -19,7 +21,8 @@ const CompanySchema = Schema(
             validate: {
                 validator: Libs.Validators.isValidUrl,
                 message: Libs.Errors.InvalidUrl,
-            }
+            },
+            default: "URL"
         },
         password: {
             type: String,
@@ -29,7 +32,8 @@ const CompanySchema = Schema(
     {
         collection: 'companies',
         versionKey: false,
-        timestamps: true
+        timestamps: true,
+        
     }
 );
 

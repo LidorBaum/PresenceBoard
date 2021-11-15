@@ -34,9 +34,9 @@ function responseError(response, errMessage) {
 
 async function addCompany(req, res) {
     try {
-        const companyId = await CompaniesModel.createCompany(req.body);
+        const company = await CompaniesModel.createCompany(req.body);
 
-        return res.send(companyId);
+        return res.send(company);
     } catch (err) {
         return responseError(res, err.message);
     }

@@ -4,6 +4,7 @@ const { CompaniesModel } = require('../models/company');
 const saltRounds = 10
 
 async function login(companyId, password) {
+    console.log(companyId, password);
     if (!companyId || !password) return Promise.reject('companyName and password are required!')
 
     const company = await CompaniesModel.getById(companyId)
