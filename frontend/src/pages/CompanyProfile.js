@@ -14,9 +14,9 @@ import { EmployeesList } from '../cmps/EmployeesList';
 export const CompanyProfile = (props) => {
     let history = useHistory();
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext)
-    const [isOpen, setIsOpen] = useState(false)
+    const [isNewEmpOpen, setIsNewEmpOpen] = useState(false)
     const toggleNewEmployee = () =>{
-        setIsOpen(!isOpen)
+        setIsNewEmpOpen(!isNewEmpOpen)
     }
     const [employees, setEmployees] = useState(null);
 
@@ -33,7 +33,7 @@ export const CompanyProfile = (props) => {
     if (!loggedCompany) return <div>Loading...</div>
     return (
         <>
-            {isOpen && <NewEmployeePopup companyId={loggedCompany.id} company={loggedCompany.name} handleClose={toggleNewEmployee}/>}
+            {isNewEmpOpen && <NewEmployeePopup companyId={loggedCompany.id} company={loggedCompany.name} handleClose={toggleNewEmployee}/>}
             <div className='profile-container'>
                 <img src={loggedCompany.logo}></img>
             </div>

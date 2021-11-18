@@ -4,16 +4,13 @@
     margin: 0 auto;
 }
 .board-container{
-    width: 100vh;
-
     .employee-list {
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         align-content: flex-start;
         flex-wrap: wrap;
         padding: 20px;
         align-items: center;
-        width: 1000px;
         margin: 0 auto;
         .opacity{
             opacity: 0%;
@@ -29,23 +26,24 @@
             border: 3px solid #004346;
             text-align: center;
             width: 200px;
-            height: 280px;
+            height: 200px;
             box-sizing: border-box;
-            flex-basis: 23.5%;
             border-radius: 15px;
             align-items: center;
             .click-loader{
                 position: absolute;
-                top: 50%;
+                top: 30%;
                 z-index: 2
             }
             .employee-card-img {
-                width: 180px;
-                height: 180px;
+                width: 90%;
+                height: 90%;
+                padding-bottom: 5px;
                 object-fit: cover;
                 border-radius: 15px;
                 justify-self: center;
-                transition: all 2.2s ;
+                transition: all 2.2s;
+                overflow: hidden;
 
             }
             .gray{

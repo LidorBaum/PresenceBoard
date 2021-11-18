@@ -79,18 +79,17 @@ EmployeeSchema.statics.updateImage = async function (employeeId, newImg) {
     )
 };
 
-EmployeeSchema.statics.updateIsPresence = async function (employeeId, isPresence) {
+EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
     const employeeObj = await this.getById(employeeId);
 
     if (!employeeObj) {
         throw new Error(Libs.Errors.EmployeeValidation.EmployeeIdDoesNotExists);
-    }
-
+    }    
     return this.findOneAndUpdate(
         { _id: employeeId },
         { 
             $set: {
-                isPresence: Boolean(isPresence),
+                isPresence: Boolean(!employeeObj.isPresence),
                 lastScan: new Date()
             }
         },
@@ -99,7 +98,7 @@ EmployeeSchema.statics.updateIsPresence = async function (employeeId, isPresence
 };
 
 EmployeeSchema.statics.getAllEmployeesInCompany = async function (companyId){
-    return this.find({company: companyId}).sort({isPresence: -1})
+    return this.find({company: companyId}).sort({isPresence: -1, lastScan: -1})
 }
 EmployeeSchema.statics.getById = async function (employeeId){
     return this.findOne({_id: employeeId})

@@ -1,5 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+**/package-lock
+
 # compiled output
 **/dist
 **/tmp
@@ -29,9 +31,6 @@ chrome-profiler-events*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
-
-
-**/package-lock
 
 # misc
 **/.sass-cache

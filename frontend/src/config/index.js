@@ -1,4 +1,4 @@
-const environment = process.env.NODE_ENV || 'dev'
+const environment = process.env.ENVIRONMENT || 'dev'
 
 
 function tryRequire(environment) {
@@ -7,7 +7,7 @@ function tryRequire(environment) {
     } catch (err) {
         if ('MODULE_NOT_FOUND' === err.code) {
             throw Error(
-                'Incorrect NODE_ENV variable set, exiting\nAllowed Environments:\n1. dev\n2. prod',
+                'Incorrect ENVIRONMENT variable set, exiting\nAllowed Environments:\n1. dev\n2. prod',
             );
         }
     }

@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
 const BASE_URL =
-  process.env.NODE_ENV === 'production' ? '/' : '//localhost:3030';
+  process.env.NODE_ENV === 'production' ? '/' : '//localhost:4444 ';
 
 let socket;
 
@@ -15,6 +15,7 @@ export default {
 
 function setup() {
   socket = io(BASE_URL);
+  return socket
 }
 
 function terminate() {

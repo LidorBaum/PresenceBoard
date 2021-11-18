@@ -1,14 +1,13 @@
 import Axios from 'axios';
-
-const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/api/'
-    : '//localhost:4444/api/'
+const { baseURL } = require('../config')
 
 
-var axios = Axios.create({
+const API_URL = `${baseURL}/api/`
+const axios = Axios.create({
     withCredentials: true
 });
-axios.defaults.withCredentials = true;
+
+// axios.defaults.withCredentials = true;
 
 
 
@@ -30,14 +29,14 @@ export default {
 async function ajax(endpoint, method = 'get', data = null) {
     try {
         const res = await axios({
-            url: `${BASE_URL}${endpoint}`,
+            url: `${API_URL}${endpoint}`,
             method,
             data
         })
         return res.data;
     } catch (err) {
        
-        console.log(`Had Issues ${method}ing to the backend, endpoint: ${BASE_URL}${endpoint}, with data: ${data}`);
+        console.log(`Had Issues ${method}ing to the backend, endpoint: ${API_URL}${endpoint}, with data: ${data}`);
         console.dir(err);
         if (err.response && err.response.status === 401) {
             window.location.assign('/#/login');
