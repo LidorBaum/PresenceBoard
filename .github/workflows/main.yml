@@ -23,9 +23,10 @@ jobs:
               password $HEROKU_PASSWORD
           EOF
         env:
-          HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+          HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
       - run: |
+          echo $HEROKU_PASSWORD
           cat ~/.netrc
           heroku auth:whoami
       - name: Add Heroku remote
