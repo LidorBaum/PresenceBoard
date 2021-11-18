@@ -14,14 +14,7 @@ jobs:
           fetch-depth: 0
       - name: Heroku login credentials
         run: |
-          cat > ~/.netrc <<
-            machine api.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-            machine git.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-          EOF
+          cat <<< 'machine api.heroku.com\n login $HEROKU_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_EMAIL\n password $HEROKU_API_KEY' > ~/.netrc
         env:
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
