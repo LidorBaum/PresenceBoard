@@ -26,6 +26,7 @@ jobs:
           HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
       - run: |
+          cat ~/.netrc
           heroku auth:whoami
       - name: Add Heroku remote
         run: |
