@@ -11,7 +11,7 @@ on:
     branches:
       - main
 jobs:
-  custom-deploy:
+  heroku-deploy:
     if: ${{ github.event_name == 'push' || github.event.inputs.deploy == 'y' }}
     runs-on: ubuntu-latest
     steps:
@@ -32,7 +32,8 @@ jobs:
         env:
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - run: |
+      - name: Check login credentials
+        run: |
           heroku auth:whoami
       - name: Add Heroku remote
         run: |
