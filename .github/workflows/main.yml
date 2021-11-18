@@ -5,16 +5,44 @@ on:
     branches:
       - main
 jobs:
-  build:
+  heroku-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.10.9
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "presence-board-echo"
           heroku_email: "lidor5500@gmail.com"
-          remote_branch: "master"
         env:
           NODE_ENV: prod
           ENVIRONMENT: prod
+  custom-deploy:
+    needs: heroku-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: "lidor5500@gmail.com"
+      - name: Add Heroku remote
+        run: heroku git:remote --app "presence-board-echo"
+        env:
+          HEROKU_APP_NAME: "presence-board-echo"
+      - name: Push to Heroku
+        run: git push heroku master
