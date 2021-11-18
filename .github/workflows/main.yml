@@ -5,22 +5,7 @@ on:
     branches:
       - main
 jobs:
-  heroku-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "presence-board-echo"
-          heroku_email: "lidor5500@gmail.com"
-        env:
-          NODE_ENV: prod
-          ENVIRONMENT: prod
   custom-deploy:
-    needs: heroku-deploy
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -41,8 +26,12 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: "lidor5500@gmail.com"
       - name: Add Heroku remote
-        run: heroku git:remote --app "presence-board-echo"
+        run: heroku git:remote --app $HEROKU_APP_NAME
         env:
           HEROKU_APP_NAME: "presence-board-echo"
+      - name: Set environments
+        run: |
+          heroku config:set NODE_ENV=prod
+          heroku config:set ENVIRONMENT=prod
       - name: Push to Heroku
         run: git push heroku master
