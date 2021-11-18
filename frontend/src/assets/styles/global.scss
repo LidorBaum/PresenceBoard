@@ -1,0 +1,21 @@
+// Setup
+@import "setup/variables.scss";
+@import "setup/functions.scss";
+@import "setup/mixins.scss";
+@import "setup/typography.scss";
+
+// Basics
+@import "basics/helpers.scss";
+@import "basics/layout.scss";
+@import "basics/base.scss";
+@import "basics/links.scss";
+@import "basics/buttons.scss";
+
+// Components
+
+@import "views/home-page.scss";
+@import "views/loginSignup.scss";
+@import "views/company-profile.scss";
+@import "views/board.scss";
+@import "views/header.scss";
+@import "views/newEmployeePopup.scss"

@@ -8,6 +8,8 @@ const CompanySchema = Schema(
         name: {
             type: String,
             required: true,
+            unique: true,
+            index: true,
             validate: {
                 validator: Libs.Validators.isValidCompanyName,
                 message: Libs.Errors.TextValidation.InvalidCompanyName,
@@ -19,13 +21,19 @@ const CompanySchema = Schema(
             validate: {
                 validator: Libs.Validators.isValidUrl,
                 message: Libs.Errors.InvalidUrl,
-            }
-        }
+            },
+            default: "URL"
+        },
+        password: {
+            type: String,
+            required: true
+        },
     },
     {
         collection: 'companies',
         versionKey: false,
-        timestamps: true
+        timestamps: true,
+        
     }
 );
 
@@ -41,6 +49,9 @@ CompanySchema.statics.deleteCompany = function (companyId) {
 
 CompanySchema.statics.getById = function (companyId) {
     return this.findById(companyId)
+};
+CompanySchema.statics.getByName = function (companyName) {
+    return this.findById(companyName)
 };
 
 CompanySchema.statics.getCompanies = function () {

@@ -18,7 +18,7 @@ companyRouter.get('/:companyId([A-Fa-f0-9]{24})', getCompany);
 
 function responseError(response, errMessage) {
     let status = 500;
-
+    console.log("ERROR");
     switch (errMessage) {
         case Libs.Errors.CompanyValidation.CompanyDoesNotExists:
             status = 404;    
@@ -34,9 +34,9 @@ function responseError(response, errMessage) {
 
 async function addCompany(req, res) {
     try {
-        const companyId = await CompaniesModel.createCompany(req.body);
+        const company = await CompaniesModel.createCompany(req.body);
 
-        return res.send(companyId);
+        return res.send(company);
     } catch (err) {
         return responseError(res, err.message);
     }
@@ -72,6 +72,7 @@ async function editCompany(req, res) {
 
 async function getCompanies(req, res) {
     try {
+        console.log('retrieving comps');
         const companies = await CompaniesModel.getCompanies();
         return res.send(companies);
     } catch (err) {

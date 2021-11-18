@@ -1,0 +1,31 @@
+{
+  "_id": "5c09",
+  "name": "Funky Monks",
+  "tags": [
+    "Funk",
+    "Happy"
+  ],
+  "createdBy": {
+    "_id": "u101",
+    "fullName": "Puki Ben David",
+    "imgUrl": "http://some-photo/"
+  },
+  "likedByUsers": [
+    {},
+    {}
+  ],
+  "songs": [
+    {
+      "title": "The Meters - Cissy Strut",
+      "id": "s1001",
+      "imgUrl": "https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg",
+      "addedBy": {}
+    },
+    {
+      "title": "The JB's - Pass The Peas",
+      "id": "mUkfiLjooxs",
+      "imgUrl": "https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg",
+      "addedBy": {}
+    }
+  ]
+}

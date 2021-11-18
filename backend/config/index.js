@@ -1,15 +1,13 @@
-const devConfig = require('./dev');
-const prodConfig = require('./prod');
+const environment = process.env.NODE_ENV || 'dev'
 
-const environment = process.env.ENVIRONMENT;
 
-function tryRequire(env) {
+function tryRequire(environment) {
     try {
-        return require(`./${env}`);
+        return require(`./${environment}`);
     } catch (err) {
         if ('MODULE_NOT_FOUND' === err.code) {
             throw Error(
-                'Incorrect ENVIRONMENT variable set, exiting\nAllowed Environments:\n1. dev\n2. prod\n3',
+                'Incorrect NODE_ENV variable set, exiting\nAllowed Environments:\n1. dev\n2. prod',
             );
         }
     }

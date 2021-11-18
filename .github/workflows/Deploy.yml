@@ -1,12 +1,6 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
-    inputs:
-      deploy:
-        description: 'Should deploy (n/y)'
-        default: 'n'
-        required: false
   push:
     branches:
       - main
@@ -14,19 +8,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: deploy
-        if: ${{ github.event_name == 'push' || github.event.inputs.deploy == 'y' }}
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "presence-board-echo"
           heroku_email: "lidor5500@gmail.com"
-          usedocker: true
-          docker_build_args: |
-            NODE_ENV
-            ENVIRONMENT
-            SECRET_KEY
         env:
           NODE_ENV: prod
           ENVIRONMENT: prod
