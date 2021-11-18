@@ -26,12 +26,11 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: "lidor5500@gmail.com"
       - name: Add Heroku remote
-        run: heroku git:remote --app $HEROKU_APP_NAME
+        run: |
+          heroku config:set NODE_ENV=prod  --app $HEROKU_APP_NAME
+          heroku config:set ENVIRONMENT=prod  --app $HEROKU_APP_NAME
+          heroku git:remote --app $HEROKU_APP_NAME
         env:
           HEROKU_APP_NAME: "presence-board-echo"
-      - name: Set environments
-        run: |
-          heroku config:set NODE_ENV=prod
-          heroku config:set ENVIRONMENT=prod
       - name: Push to Heroku
         run: git push heroku master
