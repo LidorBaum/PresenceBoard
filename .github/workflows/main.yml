@@ -27,7 +27,9 @@ jobs:
           HEROKU_EMAIL: "lidor5500@gmail.com"
       - name: Add Heroku remote
         run: |
-          heroku config:set NODE_ENV=prod config:set ENVIRONMENT=prod git:remote --app $HEROKU_APP_NAME
+          heroku git:remote --app $HEROKU_APP_NAME
+          heroku config:set NODE_ENV=prod
+          heroku config:set ENVIRONMENT=prod
         env:
           HEROKU_APP_NAME: "presence-board-echo"
       - name: Push to Heroku
