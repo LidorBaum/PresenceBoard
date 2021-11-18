@@ -17,16 +17,15 @@ jobs:
           cat > ~/.netrc <<EOF
             machine api.heroku.com
               login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
+              password $HEROKU_PASSWORD
             machine git.heroku.com
               login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
+              password $HEROKU_PASSWORD
           EOF
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_EMAIL: "lidor5500@gmail.com"
+          HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
       - run: |
-          heroku login
           heroku auth:whoami
       - name: Add Heroku remote
         run: |
@@ -34,6 +33,6 @@ jobs:
           heroku config:set NODE_ENV=prod --app $HEROKU_APP_NAME
           heroku config:set ENVIRONMENT=prod --app $HEROKU_APP_NAME
         env:
-          HEROKU_APP_NAME: "presence-board-echo"
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
         run: git push heroku master
