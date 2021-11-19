@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "heroku-prebuild": "cd frontend && npm install && npm run build" ,
+        "heroku-prebuild": "cd frontend && npm install && npm run build && npm run move-build" ,
+        "move-build": "mv -fv frontend/build/* backend/public/",
         "start": "cd backend && npm install && node server.js"
     }
 }
