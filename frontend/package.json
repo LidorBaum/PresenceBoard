@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start-dev": "set ENVIRONMENT=prod&&react-scripts start", 
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv -fv build/* ../backend/public/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
