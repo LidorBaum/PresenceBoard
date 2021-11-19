@@ -5,12 +5,9 @@ import { CompanyContext } from '../contexts/CompanyContext';
 import { BoardEmployeeList } from '../cmps/BoardEmployeeList';
 import employeeService from '../services/employeeService';
 import io from 'socket.io-client'
-<<<<<<< HEAD
-=======
 import SkeletonTheme from '../cmps/SkeletonTheme';
 import Spin from "react-cssfx-loading/lib/Spin";
 
->>>>>>> ea98459a8a716b46435a2790c5d3859fe4426c2f
 const { baseURL } = require('../config')
 
 
