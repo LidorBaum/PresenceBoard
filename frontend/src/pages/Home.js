@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import companyService from '../services/companyService';
 import { CompanyContext } from '../contexts/CompanyContext';
-import Select from "react-dropdown-select";
 
 
 

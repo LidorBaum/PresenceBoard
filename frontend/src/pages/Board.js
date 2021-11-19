@@ -2,21 +2,16 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import companyService from '../services/companyService';
 import { CompanyContext } from '../contexts/CompanyContext';
-import { Link } from 'react-router-dom'
 import { BoardEmployeeList } from '../cmps/BoardEmployeeList';
-
-import Select from "react-dropdown-select";
 import employeeService from '../services/employeeService';
 import io from 'socket.io-client'
-import socketService from '../services/socketService';
-const config = require('../config')
+import SkeletonTheme from '../cmps/SkeletonTheme';
+import Spin from "react-cssfx-loading/lib/Spin";
 
+const { baseURL } = require('../config')
 
-const baseURL = config.baseURL
 
 const socket = io(baseURL)
-
-
 
 export const Board = (props) => {
   let history = useHistory();
@@ -38,7 +33,7 @@ export const Board = (props) => {
   useEffect(() =>{
     if (!loggedCompany) return
     socket.emit('board_page', loggedCompany.id)
-  }, [socket, loggedCompany])
+  }, [loggedCompany])
 
   const onLogout = async () => {
     await companyService.logoutCompany()
@@ -55,8 +50,8 @@ export const Board = (props) => {
       await socket.emit('update_board', {companyId: loggedCompany.id, employeeId: employeeId})
       
       // document.getElementById(`${employeeId}-card`).classList.add('opacity')
-      // setIsDataChanged(!isDataChanged)
-      setTimeout(()=>setIsDataChanged(!isDataChanged), 1200)
+      setIsDataChanged(!isDataChanged)
+      // setTimeout(()=>setIsDataChanged(!isDataChanged), 100)
     } catch (err) {
       //NEED TO HANDLE ERROR!!!
       console.log(err);
@@ -79,16 +74,16 @@ export const Board = (props) => {
         // console.log(chatId);
         refreshBoard({companyId, employeeId})
     })
-}, [socket])
+}, [])
 
   if (!loggedCompany) return <div>Loading...</div>
   return (
     <><div>
       <button onClick={onLogout}>Logout</button>
     </div>
-      <img className='board-logo-img' src={loggedCompany.logo}></img>
+      {/* <img alt='logo' className='board-logo-img' src={loggedCompany.logo}></img> */}
       <div className='board-container'>
-        {employees ? <BoardEmployeeList onChangePresence={onChangePresence} employees={employees} /> : <div>LOADING</div>}
+        {employees ? <BoardEmployeeList onChangePresence={onChangePresence} employees={employees} /> : <div className='board-loader'><Spin color="#FF0000" border-color="#0d6efd" width="100px" height="100px" duration="1s"  /></div>}
       </div>
     </>
 

@@ -35,7 +35,7 @@ export const LoginSignup = (props) => {
 
     const searchQuery = new URLSearchParams(props.location.search);
     if (searchQuery.get('newCompany')) signupButton.current.click()
-  }, [])
+  }, [props.location.search])
 
   useEffect(() =>{
     const getCompanies= async () => {

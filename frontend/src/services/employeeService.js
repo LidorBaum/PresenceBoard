@@ -1,5 +1,4 @@
 import httpService from './httpService'
-import Cookies from 'js-cookie'
 
 export default {
     getAllEmployees,

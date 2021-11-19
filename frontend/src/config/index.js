@@ -1,4 +1,4 @@
-const environment = process.env.ENVIRONMENT || 'dev'
+const environment = process.env.REACT_APP_ENVIRONMENT || 'prod'
 
 
 function tryRequire(environment) {

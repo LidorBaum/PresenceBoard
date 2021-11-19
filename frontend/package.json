@@ -10,6 +10,7 @@
     "js-cookie": "^3.0.1",
     "node-sass": "^4.14.1",
     "react": "^16.12.0",
+    "react-content-loader": "^6.0.3",
     "react-cssfx-loading": "^1.0.2",
     "react-dom": "^16.12.0",
     "react-dropdown-select": "^4.8.0",
@@ -22,8 +23,9 @@
     "socket.io-client": "^2.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start-dev": "set ENVIRONMENT=prod&&react-scripts start", 
+    "start": "REACT_APP_ENVIRONMENT=prod&&react-scripts start",
+    "start-prod": "set REACT_APP_ENVIRONMENT=prod&&react-scripts start",
+    "start-dev": "set REACT_APP_ENVIRONMENT=dev&& react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
