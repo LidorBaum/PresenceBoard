@@ -1,6 +1,6 @@
 {
     "script": {
-            "start": "node ./backend/server.js",
-            "heroku-postbuild": "cd frontend && npm install && npm run build"
+        "start": "cd backend && npm i && node server.js",
+        "build": "cd frontend && npm install && npm run build"
     }
 }
