@@ -42,5 +42,4 @@ jobs:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
         run: |
-          git pull heroku ${{ github.ref_name }}
           git push heroku ${{ github.ref_name }}:main
