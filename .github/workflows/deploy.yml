@@ -43,4 +43,4 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: git push heroku ${{ steps.extract_branch.outputs.branch }}:main
+        run: git push heroku ${{ github.ref_name }}:main
