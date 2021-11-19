@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { uploadImg } from '../services/cloudinaryService';
 import employeeService from '../services/employeeService';
  
@@ -41,7 +41,7 @@ export const NewEmployeePopup = props => {
             company: props.companyId
         }
         console.log(("Empl to add:", employee));
-        const returnedEmployee  = await employeeService.addEmployee(employee)
+        await employeeService.addEmployee(employee)
         props.handleClose()
     }
   return (
@@ -53,11 +53,11 @@ export const NewEmployeePopup = props => {
             <input minLength="5" required type='text' name='lastName' value={empForm.lastName} placeholder="Employee Last Name" onChange={handleChange} /> 
             <label>
                     <div className={'img-upload'}>
-                        <img className='primary-img' src={primaryImgUrl} />
+                        <img alt='profile img' className='primary-img' src={primaryImgUrl} />
                     </div>
                     <input hidden onChange={onUploadImg} type="file" />
                 </label>
-            <input type='text' disabled={isUploading} name='company-name' value={props.company} disabled />
+            <input type='text' disabled={isUploading} name='company-name' value={props.company} />
             <button>Add</button>
             </form>
       </div>

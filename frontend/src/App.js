@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom'
 import { CompanyContext } from './contexts/CompanyContext';
 import {Home} from './pages/Home.js';
 import {Board} from './pages/Board.js';

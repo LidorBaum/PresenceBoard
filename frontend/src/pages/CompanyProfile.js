@@ -1,19 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useHistory } from "react-router-dom";
-import companyService from '../services/companyService';
 import { CompanyContext } from '../contexts/CompanyContext';
 import {NewEmployeePopup} from '../cmps/NewEmployeePopup'
-import { Link } from 'react-router-dom'
 import employeeService from '../services/employeeService';
 
-import Select from "react-dropdown-select";
 import { EmployeesList } from '../cmps/EmployeesList';
 
 
 
 export const CompanyProfile = (props) => {
-    let history = useHistory();
-    const { loggedCompany, setLoggedCompany } = useContext(CompanyContext)
+    const { loggedCompany } = useContext(CompanyContext)
     const [isNewEmpOpen, setIsNewEmpOpen] = useState(false)
     const toggleNewEmployee = () =>{
         setIsNewEmpOpen(!isNewEmpOpen)
@@ -35,7 +30,7 @@ export const CompanyProfile = (props) => {
         <>
             {isNewEmpOpen && <NewEmployeePopup companyId={loggedCompany.id} company={loggedCompany.name} handleClose={toggleNewEmployee}/>}
             <div className='profile-container'>
-                <img src={loggedCompany.logo}></img>
+                <img alt='logo' src={loggedCompany.logo}></img>
             </div>
 
             <button onClick={toggleNewEmployee}> Add new Employee</button>
