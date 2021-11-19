@@ -1,6 +1,9 @@
 {
-    "script": {
-        "start": "cd backend && npm i && node server.js",
-        "build": "cd frontend && npm install && npm run build"
+    "scripts": {
+        "heroku-prebuild": "cd frontend && npm install && npm run build",
+        "build": "echo This won't run when there's a heroku-postbuild script. Otherwise it runs instead.",
+        "heroku-postbuild": "echo This runs after Heroku installs dependencies, but before Heroku prunes and caches dependencies.",
+        "heroku-cleanup": "echo This runs after Heroku prunes and caches dependencies.",
+        "start": "cd backent && npm install && node server.js"
     }
 }
