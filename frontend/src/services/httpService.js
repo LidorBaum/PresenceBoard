@@ -1,7 +1,7 @@
 import Axios from 'axios';
-const { baseURL } = require('../config')
+const { baseURL, env } = require('../config')
 
-
+console.log(env, "this is the environment for react");
 const API_URL = `${baseURL}/api/`
 const axios = Axios.create({
     withCredentials: true

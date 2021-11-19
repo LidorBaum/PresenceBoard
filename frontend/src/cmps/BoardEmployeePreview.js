@@ -1,13 +1,10 @@
-import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import Hypnosis from "react-cssfx-loading/lib/Hypnosis";
 
 export function BoardEmployeePreview({ emp, onChangePresence }) {
     const [isLoading, setIsLoading] = useState(false)
-    // if (!emp.isPresence) return <></>
 
     const onChangePresenceClick = async (employeeId) => {
-        // document.getElementById(`${employeeId}`).classList.toggle('gray')
         console.log("HERE?");
         setIsLoading(true)
         await onChangePresence(employeeId)

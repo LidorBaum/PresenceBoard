@@ -3,7 +3,7 @@ const Libs = require('../libs');
 const { EmployeesModel } = require('../models/employee');
 const path = require('path');
 const {io} = require('socket.io-client')
-const { baseURL } = require('../config')
+const { baseURL, env } = require('../config')
 
 
 const employeeRouter = express.Router();
@@ -43,17 +43,26 @@ function responseError(response, errMessage) {
     return response.status(status).send(errMessage);
 }
 
+
 async function updateEmployeePresenceNFC(req,res){
     try{
+        console.log(baseURL, env);
+        let socket
+        if(env === 'prod')
+             socket = io.connect(baseURL, {secure: true})
+        else
+             socket = io.connect(baseURL)
         // const socket = io('http://localhost:4444') //forDev
         // const socket = io.connect('https://presence-board-echo.herokuapp.com', {secure: true}) //for heroku
-        const socket = io.connect(baseURL)
+
+
 
         const employeeId = req.params.employeeId
         const result = await EmployeesModel.updateIsPresence(employeeId)
         await socket.emit('update_board', {companyId: result.company, employeeId: employeeId})
-        // res.sendFile(path.join(__dirname, '/thanks.html'));
-        res.send("THANKS")
+        // res.sendFile(path.join(__dirname, 'socket', 'thanks.html'));
+        res.sendFile(path.resolve('public','thanks.html'))
+        // res.send("THANKS")
     } 
         catch(err){
         res.send(err)
