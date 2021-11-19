@@ -5,6 +5,9 @@ import { CompanyContext } from '../contexts/CompanyContext';
 import { BoardEmployeeList } from '../cmps/BoardEmployeeList';
 import employeeService from '../services/employeeService';
 import io from 'socket.io-client'
+import SkeletonTheme from '../cmps/SkeletonTheme';
+import Spin from "react-cssfx-loading/lib/Spin";
+
 const { baseURL } = require('../config')
 
 
@@ -78,9 +81,9 @@ export const Board = (props) => {
     <><div>
       <button onClick={onLogout}>Logout</button>
     </div>
-      <img alt='logo' className='board-logo-img' src={loggedCompany.logo}></img>
+      {/* <img alt='logo' className='board-logo-img' src={loggedCompany.logo}></img> */}
       <div className='board-container'>
-        {employees ? <BoardEmployeeList onChangePresence={onChangePresence} employees={employees} /> : <div>LOADING</div>}
+        {employees ? <BoardEmployeeList onChangePresence={onChangePresence} employees={employees} /> : <div className='board-loader'><Spin color="#FF0000" border-color="#0d6efd" width="100px" height="100px" duration="1s"  /></div>}
       </div>
     </>
 
