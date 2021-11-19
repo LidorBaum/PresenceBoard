@@ -49,3 +49,5 @@ Thumbs.db
 
 # react build folder
 backend/public/*
+
+frontend/build*
