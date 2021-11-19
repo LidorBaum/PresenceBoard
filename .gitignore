@@ -1,7 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-**/package-lock
-
 # compiled output
 **/dist
 **/tmp
@@ -48,3 +46,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# react build folder
+backend/public/*
