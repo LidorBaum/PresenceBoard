@@ -2,7 +2,7 @@ import React from 'react';
 
 import { EmployeePreview } from './EmployeePreview';
 
-export const EmployeesList = ({ employees }) => {
+export const EmployeesList = ({ employees, editEmployee, deleteEmployee, showNFC }) => {
     return (
         <>
             <div className='table-header'>
@@ -21,7 +21,7 @@ export const EmployeesList = ({ employees }) => {
                 <table cellSpacing='0' cellPadding='0' border='0'>
                     <tbody>
                         {employees.map(emp =>
-                            <EmployeePreview key={emp._id} emp={emp} />
+                            <EmployeePreview showNFC={showNFC} deleteEmployee={deleteEmployee} editEmployee={editEmployee} key={emp._id} emp={emp} />
                         )}
                     </tbody>
                 </table>

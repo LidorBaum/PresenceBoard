@@ -22,9 +22,11 @@ employeeRouter.get('/presence/:employeeId([A-Fa-f0-9]{24})', updateEmployeePrese
 
 employeeRouter.put('/presenceAll', _setAllPresence);
 
-employeeRouter.get('/company/:companyId([A-Fa-f0-9]{24})/', getAllEmployeesInCompany);
+employeeRouter.get('/company/:companyId([A-Fa-f0-9]{24})/:sort', getAllEmployeesInCompany);
 
 employeeRouter.get('/:employeeId([A-Fa-f0-9]{24})', getEmployeeById);
+
+employeeRouter.put('/edit/:employeeId([A-Fa-f0-9]{24})', updateEmployee)
 
 
 function responseError(response, errMessage) {
@@ -43,6 +45,16 @@ function responseError(response, errMessage) {
     return response.status(status).send(errMessage);
 }
 
+
+async function updateEmployee(req, res){
+    try{
+        console.log("HERRE");
+        const newEmployeeObj = await EmployeesModel.updateEmployee(req.body)
+        res.send(newEmployeeObj)
+    } catch(err){
+        return responseError(res, err.message)
+    }
+}
 
 async function updateEmployeePresenceNFC(req,res){
     try{
@@ -102,11 +114,10 @@ async function deleteEmployee(req, res) {
     try {
         const { employeeId } = req.params;
         const result = await EmployeesModel.deleteEmployee(employeeId);
-
+        console.log(employeeId);
         if (result.deletedCount === 0) {
             return responseError(res, Libs.Errors.EmployeeValidation.EmployeeDoesNotExists);
         }
-
         return res.send();
     } catch (err) {
         return responseError(res, err.message);
@@ -128,8 +139,8 @@ async function editCompany(req, res) {
 
 async function getAllEmployeesInCompany(req, res) {
     try {
-        const {companyId} = req.params
-        const employees = await EmployeesModel.getAllEmployeesInCompany(companyId);
+        const {companyId, sort} = req.params
+        const employees = await EmployeesModel.getAllEmployeesInCompany(companyId, sort);
         return res.send(employees);
     } catch (err) {
         return responseError(res, err.message);

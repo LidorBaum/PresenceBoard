@@ -14,8 +14,8 @@ function getAllEmployees() {
     return httpService.get('employee')
 }
 
-function getAllEmployeesInCompany(companyId){
-    return httpService.get(`employee/company/${companyId}`)
+function getAllEmployeesInCompany(companyId, sort = 'board'){
+    return httpService.get(`employee/company/${companyId}/${sort}`)
 }
 //employee
 function getEmployeeById(employeeId) {
