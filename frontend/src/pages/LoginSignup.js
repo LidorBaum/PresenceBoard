@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { CompanyContext } from '../contexts/CompanyContext.js';
-import Select from "react-dropdown-select";
+import Select from "react-select";
 import companyService from '../services/companyService.js';
 
 
@@ -86,9 +86,8 @@ export const LoginSignup = (props) => {
     // history.push('/')
   }
 
-  const onSelectCompany = (value) => {
-    const chosenCompany = value[0]
-    setLogin(prevLogin => ({ ...prevLogin, companyId: chosenCompany.value }))
+  const onSelectCompany = (chosenCompanyObj) => {
+    setLogin(prevLogin => ({ ...prevLogin, companyId: chosenCompanyObj.value }))
   }
 
   return (
@@ -108,7 +107,7 @@ export const LoginSignup = (props) => {
             <h1>Sign in</h1>
             <Select
               options={companies}
-              values={loginCred.company}
+              value={loginCred.company}
               onChange={(value) => onSelectCompany(value)}
             />
             <input name="password" value={loginCred.password} onChange={loginHandleChange} type="password" placeholder="Password" />

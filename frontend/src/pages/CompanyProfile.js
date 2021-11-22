@@ -47,7 +47,7 @@ export const CompanyProfile = (props) => {
                 lastName: '',
                 image: ''
             })
-            const res = await employeeService.getAllEmployeesInCompany(loggedCompany.id, 'list')
+            const res = await employeeService.getAllEmployeesInCompany(loggedCompany.id, null, 'list')
             console.log(res, 'res');
             setEmployees(res)
         }

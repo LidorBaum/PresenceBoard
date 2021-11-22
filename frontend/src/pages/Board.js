@@ -7,6 +7,13 @@ import employeeService from '../services/employeeService';
 import io from 'socket.io-client'
 import SkeletonTheme from '../cmps/SkeletonTheme';
 import Spin from "react-cssfx-loading/lib/Spin";
+import Select from 'react-select';
+
+const options = [
+  { value: 'all', label: 'Show All' },
+  { value: true, label: 'Presence' },
+  { value: false , label: 'Not Presence' },
+];
 
 const { baseURL } = require('../config')
 
@@ -18,19 +25,23 @@ export const Board = (props) => {
   const { loggedCompany, setLoggedCompany } = useContext(CompanyContext)
   const [employees, setEmployees] = useState(null);
   const [isDataChanged, setIsDataChanged] = useState(false);
+  const [filterBy, setFilterBy] = useState({
+    text: '',
+    presence: 'all'
+  })
 
   useEffect(() => {
     const getEmployees = async () => {
       if (!loggedCompany) return
-      const res = await employeeService.getAllEmployeesInCompany(loggedCompany.id)
+      const res = await employeeService.getAllEmployeesInCompany(loggedCompany.id, filterBy)
       console.log(res, 'res');
       setEmployees(res)
       // socket.emit('board_page', loggedCompany.id)
     }
     getEmployees()
-  }, [loggedCompany, isDataChanged])
+  }, [loggedCompany, isDataChanged, filterBy])
 
-  useEffect(() =>{
+  useEffect(() => {
     if (!loggedCompany) return
     socket.emit('board_page', loggedCompany.id)
   }, [loggedCompany])
@@ -47,8 +58,8 @@ export const Board = (props) => {
       const res = await employeeService.updateEmployeePresence(employeeId)
       console.log(res)
 
-      await socket.emit('update_board', {companyId: loggedCompany.id, employeeId: employeeId})
-      
+      await socket.emit('update_board', { companyId: loggedCompany.id, employeeId: employeeId })
+
       // document.getElementById(`${employeeId}-card`).classList.add('opacity')
       setIsDataChanged(!isDataChanged)
       // setTimeout(()=>setIsDataChanged(!isDataChanged), 100)
@@ -58,32 +69,59 @@ export const Board = (props) => {
     }
   }
 
-  const refreshBoard = async ({companyId, employeeId}) =>{
+  const refreshBoard = async ({ companyId, employeeId }) => {
     console.log("I NEED TO REFRESH");
     document.getElementById(`${employeeId}`).classList.toggle('gray')
     // setTimeout((companyId)=>{
-      const res = await employeeService.getAllEmployeesInCompany(companyId)
-      console.log(res, 'res');
-      setEmployees(res)
+    const res = await employeeService.getAllEmployeesInCompany(companyId)
+    console.log(res, 'res');
+    setEmployees(res)
     // }, 1200)
     // setIsDataChanged(!isDataChanged)
   }
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
-    socket.on('update_board', ({companyId, employeeId}) => {
-        // console.log(chatId);
-        refreshBoard({companyId, employeeId})
+    socket.on('update_board', ({ companyId, employeeId }) => {
+      // console.log(chatId);
+      refreshBoard({ companyId, employeeId })
     })
-}, [])
+  }, [])
+
+  const handleChange = (e) => {
+    e.persist()
+    setFilterBy(prevFilter => {
+      return { ...prevFilter, text: e.target.value }
+    })
+  }
+
+  const onSetFilter = (valueObj) => {
+    setFilterBy(prevFilter => {
+      return { ...prevFilter, presence: valueObj.value }
+    })
+    setSelectedOption(valueObj)
+  }
+
+
 
   if (!loggedCompany) return <div>Loading...</div>
   return (
     <><div>
       <button onClick={onLogout}>Logout</button>
+      <div className='filter-container'>
+        <input type='text' value={filterBy.text} placeholder='Enter Name...' onChange={handleChange} />
+        <div className='presence-select'>
+          <Select
+            value={selectedOption}
+            onChange={(value) => onSetFilter(value)}
+            options={options}
+          />
+        </div>
+      </div>
     </div>
       {/* <img alt='logo' className='board-logo-img' src={loggedCompany.logo}></img> */}
       <div className='board-container'>
-        {employees ? <BoardEmployeeList onChangePresence={onChangePresence} employees={employees} /> : <div className='board-loader'><Spin color="#FF0000" border-color="#0d6efd" width="100px" height="100px" duration="1s"  /></div>}
+        {employees ? <BoardEmployeeList onChangePresence={onChangePresence} employees={employees} /> : <div className='board-loader'><Spin color="#FF0000" border-color="#0d6efd" width="100px" height="100px" duration="1s" /></div>}
       </div>
     </>
 

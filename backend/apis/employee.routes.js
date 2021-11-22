@@ -3,7 +3,8 @@ const Libs = require('../libs');
 const { EmployeesModel } = require('../models/employee');
 const path = require('path');
 const {io} = require('socket.io-client')
-const { baseURL, env } = require('../config')
+const { baseURL, env } = require('../config');
+const { runInNewContext } = require('vm');
 
 
 const employeeRouter = express.Router();
@@ -48,7 +49,6 @@ function responseError(response, errMessage) {
 
 async function updateEmployee(req, res){
     try{
-        console.log("HERRE");
         const newEmployeeObj = await EmployeesModel.updateEmployee(req.body)
         res.send(newEmployeeObj)
     } catch(err){
@@ -58,7 +58,6 @@ async function updateEmployee(req, res){
 
 async function updateEmployeePresenceNFC(req,res){
     try{
-        console.log(baseURL, env);
         let socket
         if(env === 'prod')
              socket = io.connect(baseURL, {secure: true})
@@ -140,7 +139,10 @@ async function editCompany(req, res) {
 async function getAllEmployeesInCompany(req, res) {
     try {
         const {companyId, sort} = req.params
-        const employees = await EmployeesModel.getAllEmployeesInCompany(companyId, sort);
+        console.log(req.query);
+        const filterBy = {text: req.query.text || null, presence: req.query.presence || null}
+
+        const employees = await EmployeesModel.getAllEmployeesInCompany(companyId, sort, filterBy);
         return res.send(employees);
     } catch (err) {
         return responseError(res, err.message);

@@ -58,7 +58,7 @@ EmployeeSchema.statics.createEmployee = function (employeeObj) {
 };
 
 EmployeeSchema.statics.deleteEmployee = function (employeeId) {
-    return this.deleteOne({_id: employeeId});
+    return this.deleteOne({ _id: employeeId });
 };
 
 
@@ -118,9 +118,24 @@ EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
     )
 };
 
-EmployeeSchema.statics.getAllEmployeesInCompany = async function (companyId, sort) {
-    if(sort === 'board') return this.find({ company: companyId }).sort({ isPresence: -1, lastScan: -1 })
-    return this.find({company: companyId}).sort({updatedAt: -1})
+EmployeeSchema.statics.getAllEmployeesInCompany = async function (companyId, sort, filterBy) {
+    console.log(filterBy);
+    if(!filterBy.text && !filterBy.presence && sort==='list')     return this.find({ company: companyId }).sort({ updatedAt: -1})
+
+    const textRegex = new RegExp(filterBy.text || '', 'i')
+    
+    return this.find({
+        $and: [
+            { company: companyId },
+            {$or:[
+                { firstName: { $regex: textRegex } },
+                {lastName : {$regex: textRegex}}
+            ]},
+            {
+                isPresence: filterBy.presence
+            }
+        ]
+    }).sort({ isPresence: -1, lastScan: -1 })
 
 }
 EmployeeSchema.statics.getById = async function (employeeId) {
