@@ -19,7 +19,6 @@ body {
 	height: 100vh;
 	margin: -20px 0 50px;
 }
-
 h1 {
 	font-weight: bold;
 	margin: 0;
@@ -39,9 +38,7 @@ p {
 	margin: 20px 0 30px;
 }
 
-span {
-	font-size: 12px;
-}
+
 
 a {
 	color: #333;
@@ -86,6 +83,7 @@ form {
 	padding: 0 50px;
 	height: 100%;
 	text-align: center;
+	gap: 10px
 }
 
 input {
@@ -94,19 +92,21 @@ input {
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
+	border-radius: 10px;
 }
+
 
 .container {
 	background-color: #fff;
 	border-radius: 10px;
-  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
-	position: relative;
-	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
-    color: rgb(77, 123, 221);
+			position: relative;
+			overflow: hidden;
+			width: 768px;
+			max-width: 100%;
+			min-height: 480px;
+			color: rgb(77, 123, 221);
 }
 
 .form-container {
@@ -234,3 +234,16 @@ input {
 	width: 40px;
 }
 }
+.react-dropdown-select{
+	width: 50px;
+}
+.react-dropdown-select-input{
+	
+		line-height: inherit !important;
+	border: none !important;
+	margin-left: 5px !important;
+	background: transparent !important;
+	padding: 0 !important;
+	width: calc(0ch + 50px) !important;
+	font-size: smaller !important;
+	}

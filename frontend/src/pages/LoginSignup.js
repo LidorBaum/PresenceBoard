@@ -106,13 +106,11 @@ export const LoginSignup = (props) => {
         <div className="form-container sign-in-container">
           <form action="#" onSubmit={doLogin}>
             <h1>Sign in</h1>
-            <div className='selectCompany'>
             <Select
               options={companies}
               values={loginCred.company}
               onChange={(value) => onSelectCompany(value)}
             />
-            </div>
             <input name="password" value={loginCred.password} onChange={loginHandleChange} type="password" placeholder="Password" />
             {/* <a href="#">Forgot your password?</a> */}
             <button>Sign In</button>
