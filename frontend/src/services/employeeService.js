@@ -17,7 +17,7 @@ function getAllEmployees() {
 function getAllEmployeesInCompany(companyId, filterBy, sort = 'board'){
     console.log(filterBy, sort);
     if(!filterBy) return httpService.get(`employee/company/${companyId}/${sort}`) 
-    if(!filterBy.text && filterBy.presence === 'all') return httpService.get(`employee/company/${companyId}/${sort}`)
+    if(!filterBy.text && filterBy.presence === null) return httpService.get(`employee/company/${companyId}/${sort}`)
     return httpService.get(`employee/company/${companyId}/${sort}?text=${filterBy.text}&presence=${filterBy.presence}`)
 }
 //employee

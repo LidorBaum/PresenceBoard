@@ -10,7 +10,7 @@ import Spin from "react-cssfx-loading/lib/Spin";
 import Select from 'react-select';
 
 const options = [
-  { value: 'all', label: 'Show All' },
+  { value: null, label: 'Show All' },
   { value: true, label: 'Presence' },
   { value: false , label: 'Not Presence' },
 ];
@@ -27,7 +27,7 @@ export const Board = (props) => {
   const [isDataChanged, setIsDataChanged] = useState(false);
   const [filterBy, setFilterBy] = useState({
     text: '',
-    presence: 'all'
+    presence: null
   })
 
   useEffect(() => {
@@ -54,15 +54,15 @@ export const Board = (props) => {
   const onChangePresence = async (employeeId) => {
     console.log(employeeId);
     try {
-      document.getElementById(`${employeeId}`).classList.toggle('gray')
+      document.getElementById(`${employeeId}-img`).classList.toggle('gray')
       const res = await employeeService.updateEmployeePresence(employeeId)
       console.log(res)
 
       await socket.emit('update_board', { companyId: loggedCompany.id, employeeId: employeeId })
 
       // document.getElementById(`${employeeId}-card`).classList.add('opacity')
-      setIsDataChanged(!isDataChanged)
-      // setTimeout(()=>setIsDataChanged(!isDataChanged), 100)
+      // setIsDataChanged(!isDataChanged)
+      setTimeout(()=>setIsDataChanged(!isDataChanged), 1000)
     } catch (err) {
       //NEED TO HANDLE ERROR!!!
       console.log(err);
@@ -112,9 +112,10 @@ export const Board = (props) => {
         <input type='text' value={filterBy.text} placeholder='Enter Name...' onChange={handleChange} />
         <div className='presence-select'>
           <Select
-            value={selectedOption}
+            value={selectedOption || options[0]}
             onChange={(value) => onSetFilter(value)}
             options={options}
+            isSearchable={false}
           />
         </div>
       </div>

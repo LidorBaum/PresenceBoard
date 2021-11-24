@@ -73,6 +73,7 @@ async function updateEmployeePresenceNFC(req,res){
         await socket.emit('update_board', {companyId: result.company, employeeId: employeeId})
         // res.sendFile(path.join(__dirname, 'socket', 'thanks.html'));
         res.sendFile(path.resolve('public','thanks.html'))
+        // res.render(path.resolve('public', 'thankyou.html'))
         // res.send("THANKS")
     } 
         catch(err){
@@ -139,7 +140,7 @@ async function editCompany(req, res) {
 async function getAllEmployeesInCompany(req, res) {
     try {
         const {companyId, sort} = req.params
-        console.log(req.query);
+        console.log(req.query, 'req query');
         const filterBy = {text: req.query.text || null, presence: req.query.presence || null}
 
         const employees = await EmployeesModel.getAllEmployeesInCompany(companyId, sort, filterBy);

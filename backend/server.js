@@ -23,6 +23,7 @@ app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+
 // app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: 'presenceboard',

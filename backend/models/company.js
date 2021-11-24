@@ -55,7 +55,7 @@ CompanySchema.statics.getByName = function (companyName) {
 };
 
 CompanySchema.statics.getCompanies = function () {
-    return this.find({}).exec();
+    return this.find({}).sort({name: 1}).exec();
 }
 
 CompanySchema.statics.updateCompany = async function (companyId, newName, newLogo) {

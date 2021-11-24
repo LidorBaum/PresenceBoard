@@ -91,7 +91,7 @@ input {
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
-	width: 100%;
+	width: 250px;
 	border-radius: 10px;
 }
 
@@ -237,6 +237,7 @@ input {
 .react-dropdown-select{
 	width: 50px;
 }
+
 .react-dropdown-select-input{
 	
 		line-height: inherit !important;
@@ -246,4 +247,8 @@ input {
 	padding: 0 !important;
 	width: calc(0ch + 50px) !important;
 	font-size: smaller !important;
+	}
+
+	.select-company{
+		width: 250px;
 	}
