@@ -33,9 +33,14 @@ export const Board = (props) => {
   useEffect(() => {
     const getEmployees = async () => {
       if (!loggedCompany) return
+      document.getElementById('board-container').classList.toggle('opacity')
       const res = await employeeService.getAllEmployeesInCompany(loggedCompany.id, filterBy)
-      console.log(res, 'res');
-      setEmployees(res)
+      setTimeout(()=>{
+        setEmployees(res)
+        document.getElementById('board-container').classList.toggle('opacity')
+      },600)
+      // console.log(res, 'res');
+      
       // socket.emit('board_page', loggedCompany.id)
     }
     getEmployees()
@@ -106,10 +111,10 @@ export const Board = (props) => {
 
   if (!loggedCompany) return <div>Loading...</div>
   return (
-    <><div>
+    <div>
       <button onClick={onLogout}>Logout</button>
       <div className='filter-container'>
-        <input type='text' value={filterBy.text} placeholder='Enter Name...' onChange={handleChange} />
+        <input className='text-search' type='search' value={filterBy.text} placeholder='Enter Name...' onChange={handleChange} />
         <div className='presence-select'>
           <Select
             value={selectedOption || options[0]}
@@ -119,12 +124,12 @@ export const Board = (props) => {
           />
         </div>
       </div>
-    </div>
       {/* <img alt='logo' className='board-logo-img' src={loggedCompany.logo}></img> */}
-      <div className='board-container'>
+      <div id='board-container' className='board-container'>
         {employees ? <BoardEmployeeList onChangePresence={onChangePresence} employees={employees} /> : <div className='board-loader'><Spin color="#FF0000" border-color="#0d6efd" width="100px" height="100px" duration="1s" /></div>}
       </div>
-    </>
+    </div>
+    
 
   )
 }

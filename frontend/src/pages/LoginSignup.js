@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { CompanyContext } from '../contexts/CompanyContext.js';
+import { SnackbarContext } from '../contexts/SnackbarContext';
 import Select from "react-select";
 import companyService from '../services/companyService.js';
 
-
+const snackMissingCreds = { severity: 'error', open: true, message: 'Missing Name / Password' }
+const snackIncorrectPassword = { severity: 'error', open: true, message: 'Incorrect Password!' }
 
 
 export const LoginSignup = (props) => {
   let history = useHistory();
   const { loggedCompany, setLoggedCompany } = useContext(CompanyContext)
+  const { snack, setSnack } = useContext(SnackbarContext);
   if (loggedCompany) history.push('/board')
 
 
@@ -37,13 +40,13 @@ export const LoginSignup = (props) => {
     if (searchQuery.get('newCompany')) signupButton.current.click()
   }, [props.location.search])
 
-  useEffect(() =>{
-    const getCompanies= async () => {
+  useEffect(() => {
+    const getCompanies = async () => {
       const res = await companyService.getCompanies()
       const companiesMap = []
       console.log(res);
       res.forEach(company => {
-        companiesMap.push({label: company.name, value: company._id})
+        companiesMap.push({ label: company.name, value: company._id })
       })
       setCompanies(companiesMap)
     }
@@ -66,21 +69,45 @@ export const LoginSignup = (props) => {
 
   const doLogin = async ev => {
     ev.preventDefault()
-     console.log('doLogin');
-    const {companyId, password} = loginCred
+    console.log('doLogin');
+    const { companyId, password } = loginCred
     console.log(loginCred);
-    if(!companyId || !password) return console.log('missing creds');
-    const company = await companyService.loginCompany({companyId: companyId, password})
-    setLoggedCompany(company)
-    console.log('signedupSucces');
-    // history.push('/')
+    if (!companyId || !password) {
+      if (snack.open) {
+        setSnack(prevSnack => { return { ...prevSnack, open: false } })
+        return setTimeout(() => { setSnack(snackMissingCreds) }, 100)
+      }
+      else return setSnack(snackMissingCreds)
+    }
+    try {
+      const company = await companyService.loginCompany({ companyId: companyId, password })
+      setLoggedCompany(company)
+      console.log('signedupSucces');
+
+    } catch (err) {
+      if (snack.open) {
+        setSnack(prevSnack => {
+          return { ...prevSnack, open: false }
+        })
+        setTimeout(() => { setSnack(snackIncorrectPassword) }, 100)
+      }
+      else setSnack(snackIncorrectPassword)
+    }
+
   }
+  // history.push('/')
   const doSignup = async ev => {
     ev.preventDefault()
     console.log('check');
-    const {companyName, password} = signupCred
-    if(!companyName || !password) return console.log('missing creds');
-    const company = await companyService.signupCompany({name: companyName, password})
+    const { companyName, password } = signupCred
+    if (!companyName || !password) {
+      if (snack.open) {
+        setSnack(prevSnack => { return { ...prevSnack, open: false } })
+        return setTimeout(() => { setSnack(snackMissingCreds) }, 100)
+      }
+      else return setSnack(snackMissingCreds)
+    }
+    const company = await companyService.signupCompany({ name: companyName, password })
     setLoggedCompany(company)
     console.log('signedupSucces');
     // history.push('/')
@@ -106,12 +133,13 @@ export const LoginSignup = (props) => {
           <form action="#" onSubmit={doLogin}>
             <h1>Sign in</h1>
             <div className='select-company'>
-            <Select
-              options={companies}
-              value={loginCred.company}
-              onChange={(value) => onSelectCompany(value)}
-
-            />
+              <Select
+                options={companies}
+                value={loginCred.company}
+                onChange={(value) => onSelectCompany(value)}
+                onBlur={event => event.preventDefault()}
+                blurInputOnSelect={false}
+              />
             </div>
             <input name="password" value={loginCred.password} onChange={loginHandleChange} type="password" placeholder="Password" />
             {/* <a href="#">Forgot your password?</a> */}

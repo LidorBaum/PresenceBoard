@@ -1,5 +1,6 @@
 /* Popup style */
 .popup-box {
+  z-index: 10;
     position: fixed;
     background: #00000050;
     width: 100%;
@@ -20,7 +21,26 @@
     padding: 20px;
     border: 1px solid #999;
     overflow: auto;
-
+    button{
+      background-color: #1976d2;
+      color: white;
+      &:hover{
+        background-color: #1976d2;
+      }
+    }
+    form{
+      display: flex;
+      flex-direction: column;
+    }
+    label{
+      cursor: pointer;
+      width: fit-content;
+    }
+    .primary-img{
+      display: block; 
+      // width: 200px;
+    }
+    
     
         img{
             width: 100px
