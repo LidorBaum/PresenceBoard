@@ -33,6 +33,7 @@ app.use(session({
 }))
 
 if (process.env.NODE_ENV === 'production') {
+    console.log('it is production environment')
     app.use(express.static(path.resolve(__dirname, 'public')));
 } else {
     const corsOptions = {

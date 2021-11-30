@@ -80,23 +80,6 @@ EmployeeSchema.statics.updateEmployee = async function (employeeObj) {
     )
 };
 
-// EmployeeSchema.statics.updateImage = async function (employeeId, newImg) {
-//     const employeeObj = await this.getById(employeeId);
-
-//     if (!employeeObj) {
-//         throw new Error(Libs.Errors.EmployeeValidation.EmployeeIdDoesNotExists);
-//     }
-
-//     if (!Libs.Validators.isValidUrl(newImg)) {
-//         throw new Error(Libs.Errors.InvalidUrl);
-//     }
-
-//     return this.findOneAndUpdate(
-//         { _id: employeeId },
-//         { $set: { image: newImg } },
-//         { new: true }
-//     )
-// };
 
 EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
     const employeeObj = await this.getById(employeeId);
@@ -117,7 +100,6 @@ EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
 };
 
 EmployeeSchema.statics.getAllEmployeesInCompany = async function (companyId, sort, filterBy) {
-    console.log(filterBy, sort, 'filterby in model');
     if(!filterBy.text && !filterBy.presence && sort==='list')     return this.find({ company: companyId }).sort({ updatedAt: -1})
     const textRegex = new RegExp(filterBy.text || '', 'i')
     let getEmployeeFilters = {
