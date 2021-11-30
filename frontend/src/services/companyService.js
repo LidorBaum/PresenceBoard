@@ -40,6 +40,7 @@ async function logoutCompany() {
     sessionStorage.clear();
 }
 function _handleLoginCompany(company) {
+    console.log(company, 'login handle company');
     sessionStorage.setItem('company', JSON.stringify(company))
     return company;
 }

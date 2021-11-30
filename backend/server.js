@@ -12,7 +12,7 @@ const io = require('socket.io')(http ,{
     cors: {
         origin: "http://localhost:3000  ",
         methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
+        transports: ['websocket'],
         credentials: true
     },
     allowEIO3: true

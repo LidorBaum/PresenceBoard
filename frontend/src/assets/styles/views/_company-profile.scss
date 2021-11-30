@@ -5,8 +5,18 @@
 }
 .company-profile-container{
     padding: 10px;
+    margin: 10px 10px;
 
+    .info-logo{
+        display: flex;
+        justify-content: space-between;
+        .company-img{
+            width: 100px;
+            cursor: pointer;
+        }
+    }
 }
+
 .employees-table{
     margin: 0 auto;
     // width: vw;

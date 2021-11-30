@@ -61,9 +61,6 @@ EmployeeSchema.statics.deleteEmployee = function (employeeId) {
     return this.deleteOne({ _id: employeeId });
 };
 
-
-
-
 EmployeeSchema.statics.updateEmployee = async function (employeeObj) {
 
     if (!Libs.Validators.isValidUrl(employeeObj.image)) {
@@ -82,23 +79,24 @@ EmployeeSchema.statics.updateEmployee = async function (employeeObj) {
         { new: true }
     )
 };
-EmployeeSchema.statics.updateImage = async function (employeeId, newImg) {
-    const employeeObj = await this.getById(employeeId);
 
-    if (!employeeObj) {
-        throw new Error(Libs.Errors.EmployeeValidation.EmployeeIdDoesNotExists);
-    }
+// EmployeeSchema.statics.updateImage = async function (employeeId, newImg) {
+//     const employeeObj = await this.getById(employeeId);
 
-    if (!Libs.Validators.isValidUrl(newImg)) {
-        throw new Error(Libs.Errors.InvalidUrl);
-    }
+//     if (!employeeObj) {
+//         throw new Error(Libs.Errors.EmployeeValidation.EmployeeIdDoesNotExists);
+//     }
 
-    return this.findOneAndUpdate(
-        { _id: employeeId },
-        { $set: { image: newImg } },
-        { new: true }
-    )
-};
+//     if (!Libs.Validators.isValidUrl(newImg)) {
+//         throw new Error(Libs.Errors.InvalidUrl);
+//     }
+
+//     return this.findOneAndUpdate(
+//         { _id: employeeId },
+//         { $set: { image: newImg } },
+//         { new: true }
+//     )
+// };
 
 EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
     const employeeObj = await this.getById(employeeId);

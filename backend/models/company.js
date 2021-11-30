@@ -22,7 +22,7 @@ const CompanySchema = Schema(
                 validator: Libs.Validators.isValidUrl,
                 message: Libs.Errors.InvalidUrl,
             },
-            default: "URL"
+            default: "https://res.cloudinary.com/echoshare/image/upload/v1638283806/upload_tjvouf.png"
         },
         password: {
             type: String,
@@ -40,6 +40,7 @@ const CompanySchema = Schema(
 CompanySchema.set('autoIndex', true);
 
 CompanySchema.statics.createCompany = function (companyObj) {
+    companyObj.logo = 'https://res.cloudinary.com/echoshare/image/upload/v1638283806/upload_tjvouf.png'
     return this.create(companyObj);
 };
 

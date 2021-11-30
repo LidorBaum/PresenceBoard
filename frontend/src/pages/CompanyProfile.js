@@ -1,59 +1,73 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { CompanyContext } from '../contexts/CompanyContext';
 import { SnackbarContext } from '../contexts/SnackbarContext';
+import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { EditEmployeePopup } from '../cmps/EditEmployeePopup'
 import employeeService from '../services/employeeService';
 import { EmployeesList } from '../cmps/EmployeesList';
 import { EmployeeInfoPopup } from '../cmps/EmployeeInfoPopup';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import { EditCompanyPopup } from '../cmps/EditCompanyPopup';
+import { ClickAwayListener } from '@mui/material';
+import Modal from '@mui/material/Modal';
 
-const snackLinkCopied = {severity: 'success', open: true, message: 'NFC Link Copied'}
-const snackDeletedEmployee = {severity: 'warning', open: true, message: 'Deleted Succesfully'}
+
+const snackLinkCopied = { severity: 'success', open: true, message: 'NFC Link Copied' }
+const snackDeletedEmployee = { severity: 'warning', open: true, message: 'Deleted Succesfully' }
 
 export const CompanyProfile = (props) => {
-    const { snack, setSnack } = useContext(SnackbarContext);
-    const { loggedCompany } = useContext(CompanyContext)
+    const showNotification = useContext(SnackbarHandlerContext)
+    const { loggedCompany, setLoggedCompany } = useContext(CompanyContext)
 
-    const [isNewEmpOpen, setIsNewEmpOpen] = useState(false)
+    const [isEmpEditOpen, setIsEmpEditOpen] = useState(false)
+    const [isEmpInfoOpen, setisEmpInfoOpen] = useState(false)
+    const [isCompanyEditOpen, setIsCompanyEditOpen] = useState(false)
     const [isRefresh, setDoRefresh] = useState(false)
-    const [isEmpInfoOpen, setisEmpInfoOpen] = useState(null)
-
-    const toggleEmployeePopup = (doRefresh, newEmployeeObj = null) => {
-        console.log(doRefresh, 'DR"');
+    const handleClickAway = () =>{
+        console.log("I NEED TO CLOSE NOW");
+        setIsCompanyEditOpen(false)
+        setIsEmpEditOpen(false)
+        setisEmpInfoOpen(false)
+    }
+    const toggleEmployeePopup = (doRefresh = null, newEmployeeObj = null) => {
         setEmployeeToEdit({
-            companyId: loggedCompany.id,
+            companyId: loggedCompany._id,
             company: loggedCompany.name,
             firstName: '',
             lastName: '',
             image: ''
         })
+        if (doRefresh !== 'new' && doRefresh !== 'update') return setIsEmpEditOpen(!isEmpEditOpen)
         if (doRefresh) {
             setDoRefresh(!isRefresh)
-            setIsNewEmpOpen(!isNewEmpOpen)
+            setIsEmpEditOpen(!isEmpEditOpen)
             if (doRefresh === 'new') setisEmpInfoOpen(newEmployeeObj)
             return
         }
-        setIsNewEmpOpen(!isNewEmpOpen)
+        setIsEmpEditOpen(!isEmpEditOpen)
     }
 
     const toggleEmployeeURLPopup = () => {
-        setisEmpInfoOpen(null)
+        setisEmpInfoOpen(false)
+    }
+    const toggleCompanyEditPopup = () =>{
+        setIsCompanyEditOpen(false)
     }
 
     const [employees, setEmployees] = useState(null);
     const [employeeToEdit, setEmployeeToEdit] = useState(null)
     useEffect(() => {
         const getEmployees = async () => {
-            if (!loggedCompany) return
+            if (!loggedCompany) return 
             setEmployeeToEdit({
-                companyId: loggedCompany.id,
+                companyId: loggedCompany._id,
                 company: loggedCompany.name,
                 firstName: '',
                 lastName: '',
                 image: ''
             })
-            const res = await employeeService.getAllEmployeesInCompany(loggedCompany.id, null, 'list')
-            console.log(res, 'res');
+            const res = await employeeService.getAllEmployeesInCompany(loggedCompany._id, null, 'list')
             setEmployees(res)
         }
         getEmployees()
@@ -67,18 +81,14 @@ export const CompanyProfile = (props) => {
             image: employeeObj.image,
             _id: employeeObj._id
         })
-        setIsNewEmpOpen(true)
+        setIsEmpEditOpen(true)
     }
 
     const deleteEmployee = async (employeeId) => {
         console.log("I AM DELETEING");
         await employeeService.removeEmployee(employeeId)
         setDoRefresh(!isRefresh)
-        if (snack.open) {
-            setSnack(prevSnack => { return { ...prevSnack, open: false } })
-            setTimeout(() => { setSnack(snackDeletedEmployee)}, 100)
-        }
-        else setSnack(snackDeletedEmployee)
+        showNotification(snackDeletedEmployee)
     }
 
     const showInfo = (employee) => {
@@ -86,30 +96,41 @@ export const CompanyProfile = (props) => {
     }
 
     const notifyCopyNFC = () => {
-        if (snack.open) {
-            setSnack(prevSnack => { return { ...prevSnack, open: false }})
-            setTimeout(() => { setSnack(snackLinkCopied) }, 100)
-        }
-        else setSnack(snackLinkCopied)
+        showNotification(snackLinkCopied)
+    }
+    const updateLoggedCompany = (newCompanyObj) =>{
+        setLoggedCompany(prevCompany => {
+            return {...prevCompany, logo: newCompanyObj.logo, name: newCompanyObj.name}
+        })
+        sessionStorage.setItem('company', JSON.stringify(newCompanyObj))
+
     }
 
     if (!loggedCompany || !employees) return <div>Loading...</div>
     return (
         <div className='company-profile-container'>
-            <div>
-                <h1>Company: {loggedCompany.name}</h1>
-                <h2>Number of employees: {employees.length}</h2>
+            <div className='info-logo'>
+                <div>
+                    <h1>Company: {loggedCompany.name}</h1>
+                    <h2>Number of employees: {employees.length}</h2>
+                </div>
+                <div className='company-img'>
+                    <Tooltip title='Click To Edit Company Info' arrow placement='top'>
+                    <img alt='company-img' onClick = {()=> setIsCompanyEditOpen(true)} src={loggedCompany.logo} />
+                    </Tooltip>
+                </div>
             </div>
-            {isNewEmpOpen && <EditEmployeePopup employeeToEdit={employeeToEdit} companyId={employeeToEdit.companyId} company={employeeToEdit.company} handleClose={toggleEmployeePopup} />}
-            {isEmpInfoOpen && <EmployeeInfoPopup employee={isEmpInfoOpen} handleClose={toggleEmployeeURLPopup} />}
-
+            {/* {isEmpEditOpen && <Modal open={isEmpEditOpen} onClose={toggleEmployeePopup} ><div>Modal</div> </Modal>}  */}
+            {isEmpEditOpen && <EditEmployeePopup handleClickAway={handleClickAway} employeeToEdit={employeeToEdit} companyId={employeeToEdit.companyId} company={employeeToEdit.company} handleClose={toggleEmployeePopup} />}
+            {isEmpInfoOpen && <EmployeeInfoPopup handleClickAway={handleClickAway} employee={isEmpInfoOpen} handleClose={toggleEmployeeURLPopup} notifyCopyNFC={notifyCopyNFC} />}
+            {isCompanyEditOpen && <EditCompanyPopup handleClickAway={handleClickAway} company={loggedCompany} handleClose={toggleCompanyEditPopup} updateLoggedCompany={updateLoggedCompany}/>}
             <Button variant='contained' onClick={() => toggleEmployeePopup()}> Add new Employee</Button>
             <div className='employees-table'>
 
                 {employees ? <EmployeesList notifyCopyNFC={notifyCopyNFC} showInfo={showInfo} deleteEmployee={deleteEmployee} editEmployee={editEmployee} employees={employees} /> : <div>LOADING</div>}
             </div>
 
-            </div>
+        </div>
     )
 }
 

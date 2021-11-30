@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import ReactTooltip from 'react-tooltip'
-import ToolTip from 'react-portal-tooltip'
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Zoom from '@mui/material/Zoom';
@@ -29,7 +27,6 @@ export function EmployeePreview({ emp, editEmployee, deleteEmployee, showInfo, n
 
 
     return (
-        <>
         <tr>
             <td>{emp.firstName}</td>
             <td>{emp.lastName}</td>
@@ -50,10 +47,6 @@ export function EmployeePreview({ emp, editEmployee, deleteEmployee, showInfo, n
                     <button onClick={onCopyNFC} ><img alt='nfc' src={'https://res.cloudinary.com/echoshare/image/upload/v1637527878/nfc_dl53za.png'}></img></button>
                 </Tooltip>
             </td>
-            
         </tr>
-        
-        </>
-
     )
 }
