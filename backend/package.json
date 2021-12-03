@@ -25,7 +25,9 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
+    "joi": "^17.4.3",
     "mongoose": "^6.0.12",
     "socket.io": "^4.3.2",
     "socket.io-client": "^4.3.2"

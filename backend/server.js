@@ -12,7 +12,7 @@ const io = require('socket.io')(http ,{
     cors: {
         origin: "http://localhost:3000  ",
         methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
+        transports: ['websocket'],
         credentials: true
     },
     allowEIO3: true
@@ -23,6 +23,7 @@ app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+
 // app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: 'presenceboard',
@@ -32,6 +33,7 @@ app.use(session({
 }))
 
 if (process.env.NODE_ENV === 'production') {
+    console.log('it is production environment')
     app.use(express.static(path.resolve(__dirname, 'public')));
 } else {
     const corsOptions = {

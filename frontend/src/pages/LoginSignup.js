@@ -1,22 +1,31 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { CompanyContext } from '../contexts/CompanyContext.js';
-import Select from "react-dropdown-select";
+import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
+import Tooltip from '@mui/material/Tooltip';
+
+import Select from "react-select";
 import companyService from '../services/companyService.js';
+import { handleErrors, isValidPassword } from '../services/utils.js';
 
-
+const snackMissingCreds = { severity: 'error', open: true, message: 'Missing Name / Password' }
+const snackCompanyExist = { severity: 'error', open: true, message: 'This Company Already Exist!' }
+const snackIncorrectPassword = { severity: 'error', open: true, message: 'Incorrect Password!' }
+const snackInvalidPasswordRegex = { severity: 'error', open: true, message: 'Password does not meet the requirements!' }
 
 
 export const LoginSignup = (props) => {
   let history = useHistory();
   const { loggedCompany, setLoggedCompany } = useContext(CompanyContext)
+  const [isLoading, setIsLoading] = useState(false)
   if (loggedCompany) history.push('/board')
+  const showNotification = useContext(SnackbarHandlerContext)
+
 
 
   const signupButton = useRef(null)
   const [companies, setCompanies] = useState(null)
 
-  const [msg, setMsg] = useState('')
   const [loginCred, setLogin] = useState({ companyId: '', password: '' })
   const [signupCred, setSignup] = useState({ companyName: '', password: '' })
 
@@ -35,15 +44,15 @@ export const LoginSignup = (props) => {
 
     const searchQuery = new URLSearchParams(props.location.search);
     if (searchQuery.get('newCompany')) signupButton.current.click()
-  }, [props.location.search])
+  }, [])
 
-  useEffect(() =>{
-    const getCompanies= async () => {
+  useEffect(() => {
+    const getCompanies = async () => {
       const res = await companyService.getCompanies()
       const companiesMap = []
       console.log(res);
       res.forEach(company => {
-        companiesMap.push({label: company.name, value: company._id})
+        companiesMap.push({ label: company.name, value: company._id })
       })
       setCompanies(companiesMap)
     }
@@ -61,34 +70,54 @@ export const LoginSignup = (props) => {
     const field = ev.target.name
     const value = ev.target.value
     setLogin(prevLogin => ({ ...prevLogin, [field]: value }))
-    console.log(loginCred);
   }
 
   const doLogin = async ev => {
     ev.preventDefault()
-     console.log('doLogin');
-    const {companyId, password} = loginCred
-    console.log(loginCred);
-    if(!companyId || !password) return console.log('missing creds');
-    const company = await companyService.loginCompany({companyId: companyId, password})
-    setLoggedCompany(company)
-    console.log('signedupSucces');
-    // history.push('/')
-  }
-  const doSignup = async ev => {
-    ev.preventDefault()
-    console.log('check');
-    const {companyName, password} = signupCred
-    if(!companyName || !password) return console.log('missing creds');
-    const company = await companyService.signupCompany({name: companyName, password})
-    setLoggedCompany(company)
-    console.log('signedupSucces');
-    // history.push('/')
+    setIsLoading(true)
+    const { companyId, password } = loginCred
+    if (!companyId || !password) {
+      setIsLoading(false)
+      return showNotification(snackMissingCreds)
+    }
+    try {
+      const company = await companyService.loginCompany({ companyId: companyId, password })
+      setLoggedCompany(company)
+      history.push('/board')
+    } catch (err) {
+      console.log(err);
+      showNotification(snackIncorrectPassword)
+      setIsLoading(false)
+    }
   }
 
-  const onSelectCompany = (value) => {
-    const chosenCompany = value[0]
-    setLogin(prevLogin => ({ ...prevLogin, companyId: chosenCompany.value }))
+  const doSignup = async ev => {
+    ev.preventDefault()
+    setIsLoading(true)
+    const { companyName, password } = signupCred
+    if (!companyName || !password) {
+      setIsLoading(false)
+      return showNotification(snackMissingCreds)
+    }
+    if(!isValidPassword(password)){
+      setIsLoading(false)
+      return showNotification(snackInvalidPasswordRegex)
+    }
+    try {
+      const company = await companyService.signupCompany({ name: companyName, password })
+      setLoggedCompany(company)
+      history.push('/company')
+    } catch (err) {
+      console.log(err.status);
+      //NEED TO HANDLE ERRORS, COMPANY IS EXIST(403), server problem(500)
+      handleErrors(err)
+      showNotification(snackCompanyExist)
+      setIsLoading(false)
+    }
+  }
+
+  const onSelectCompany = (chosenCompanyObj) => {
+    setLogin(prevLogin => ({ ...prevLogin, companyId: chosenCompanyObj.value }))
   }
 
   return (
@@ -99,23 +128,27 @@ export const LoginSignup = (props) => {
             <h1>Create Account</h1>
             <span>Enter your company's name</span>
             <input name="companyName" value={signupCred.companyName} onChange={signupHandleChange} type="text" placeholder="Company Name" />
-            <input name="password" value={signupCred.password} onChange={signupHandleChange} type="password" placeholder="Password" />
-            <button>Sign Up</button>
+            <Tooltip title='Password must contain at least 8 characters - 1 number and 1 letter' arrow placement="right">
+              <input name="password" value={signupCred.password} onChange={signupHandleChange} type="password" placeholder="Password" />
+            </Tooltip>
+            <button disabled={isLoading} >Sign Up</button>
           </form>
         </div>
         <div className="form-container sign-in-container">
           <form action="#" onSubmit={doLogin}>
             <h1>Sign in</h1>
-            <div className='selectCompany'>
-            <Select
-              options={companies}
-              values={loginCred.company}
-              onChange={(value) => onSelectCompany(value)}
-            />
+            <div className='select-company'>
+              <Select
+                options={companies}
+                value={loginCred.company}
+                onChange={(value) => onSelectCompany(value)}
+                onBlur={event => event.preventDefault()}
+                blurInputOnSelect={false}
+              />
             </div>
             <input name="password" value={loginCred.password} onChange={loginHandleChange} type="password" placeholder="Password" />
             {/* <a href="#">Forgot your password?</a> */}
-            <button>Sign In</button>
+            <button disabled={isLoading} >Sign In</button>
           </form>
         </div>
         <div className="overlay-container">
@@ -135,7 +168,8 @@ export const LoginSignup = (props) => {
       </div>
     </div>
   )
+
+
+
+
 }
-
-
-
