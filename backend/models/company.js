@@ -33,14 +33,18 @@ const CompanySchema = Schema(
         collection: 'companies',
         versionKey: false,
         timestamps: true,
-        
+
     }
 );
 
 CompanySchema.set('autoIndex', true);
 
-CompanySchema.statics.createCompany = function (companyObj) {
+CompanySchema.statics.createCompany = async function (companyObj) {
     companyObj.logo = 'https://res.cloudinary.com/echoshare/image/upload/v1638283806/upload_tjvouf.png'
+    const isExist = Boolean(await this.findOne({ name: { $regex: new RegExp(companyObj.name, 'i') } }))
+    if (isExist) {
+        throw new Error(Libs.Errors.CompanyValidation.CompanyNameAlreadyExists);
+    }
     return this.create(companyObj);
 };
 
@@ -51,12 +55,9 @@ CompanySchema.statics.deleteCompany = function (companyId) {
 CompanySchema.statics.getById = function (companyId) {
     return this.findById(companyId)
 };
-CompanySchema.statics.getByName = function (companyName) {
-    return this.findById(companyName)
-};
 
 CompanySchema.statics.getCompanies = function () {
-    return this.find({}).sort({name: 1}).exec();
+    return this.find({}).sort({ name: 1 }).exec();
 }
 
 CompanySchema.statics.updateCompany = async function (companyId, newName, newLogo) {

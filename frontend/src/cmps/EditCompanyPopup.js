@@ -6,6 +6,7 @@ import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import companyService from '../services/companyService';
+import { Tooltip } from '@mui/material';
 
 
 const snackNoImg = { severity: 'warning', open: true, message: 'You Must Upload A Photo' }
@@ -82,7 +83,9 @@ export const EditCompanyPopup = ({ company, handleClose, updateLoggedCompany, ha
                         <div className='company-form-img'>
                             <label htmlFor='img-input' >
                                 {/* {/* <div className={'img-upload'} /} */}
+                                <Tooltip title='Click To Change Logo' arrow placement='top'>
                                 <img alt='logo-img' className='primary-img' src={companyForm.logo} />
+                                </Tooltip>
                                 {/* </div> */}
                                 <input id='img-input' hidden onChange={onUploadImg} type="file" />
                             </label>

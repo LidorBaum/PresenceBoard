@@ -5,7 +5,6 @@ const { CompaniesModel } = require('../models/company');
 const companyRouter = express.Router();
 
 
-companyRouter.post('/', addCompany);
 
 companyRouter.delete('/:companyId([A-Fa-f0-9]{24})', deleteCompany);
 
@@ -17,8 +16,8 @@ companyRouter.get('/:companyId([A-Fa-f0-9]{24})', getCompany);
 
 
 function responseError(response, errMessage) {
-    let status = 500;
-    console.log("ERROR");
+    let status;
+
     switch (errMessage) {
         case Libs.Errors.CompanyValidation.CompanyDoesNotExists:
             status = 404;    
@@ -27,19 +26,27 @@ function responseError(response, errMessage) {
         case Libs.Errors.InvalidUrl:
             status = 400;
             break;
+        case Libs.Errors.CompanyValidation.CompanyNameAlreadyExists:
+            status = 403;
+            break;
+        default:
+            status = 500;
+            break;
     }
 
     return response.status(status).send(errMessage);
 }
 
-async function addCompany(req, res) {
-    try {
-        const company = await CompaniesModel.createCompany(req.body);
-        return res.send(company);
-    } catch (err) {
-        return responseError(res, err.message);
-    }
-}
+// async function addCompany(req, res) {
+//     try {
+//         console.log("TEST", req);
+//         const company = await CompaniesModel.createCompany(req.body);
+//         return res.send(company);
+//     } catch (err) {
+//         console.log(err);
+//         return responseError(res, err.message);
+//     }
+// }
 
 async function deleteCompany(req, res) {
     try {

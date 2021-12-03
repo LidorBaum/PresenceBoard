@@ -39,7 +39,7 @@ export const Board = (props) => {
       if (!loggedCompany) return
       // document.getElementById('board-container').classList.toggle('opacity')
       const res = await employeeService.getAllEmployeesInCompany(loggedCompany._id, filterBy)
-      if (!res.length) {
+      if (!res.length && filterBy.text === '' && filterBy.presence === null) {
         showNotification(snackNoEmployees)
         return history.push('/company')
       }

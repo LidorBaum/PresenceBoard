@@ -27,20 +27,16 @@ export default {
 }
 
 async function ajax(endpoint, method = 'get', data = null) {
-    try {
+    try{
         const res = await axios({
             url: `${API_URL}${endpoint}`,
             method,
             data
         })
         return res.data;
-    } catch (err) {
-       
-        // console.log(`Had Issues ${method}ing to the backend, endpoint: ${API_URL}${endpoint}, with data: ${data}`);
-        // console.dir(err);
-        // if (err.response && err.response.status === 401) {
-        //     window.location.assign('/#/login');
-        // }
-         throw err;
+    }
+    catch(err){
+        console.log(err.message);
+        throw err
     }
 }

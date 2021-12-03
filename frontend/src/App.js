@@ -12,6 +12,7 @@ import Cookies from 'js-cookie'
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
+import { Button } from '@mui/material';
 
 
 
@@ -55,9 +56,11 @@ function App() {
           <SnackbarHandlerContext.Provider value={showNotification}>
           <SnackbarContext.Provider value={{ snack, setSnack }}>
             {<Snackbar TransitionComponent={Slide} onClose={handleClose} autoHideDuration={3000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              open={snack.open}>
+              open={snack.open}
+               >
               <Alert onClose={handleClose} severity={snack.severity} sx={{ width: '100%' }}>
                 {snack.message}
+              {/* <Button onClick={handleClose}>Share</Button> */}
               </Alert>
             </Snackbar>}
             <Header />

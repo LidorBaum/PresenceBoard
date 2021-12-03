@@ -16,13 +16,11 @@ async function login(companyId, password) {
     return company;
 }
 
-async function signup(name, password) {
-    if (!name || !password) return Promise.reject('name and password are required!')
-
+async function signup(name, password) { 
     const hash = await bcrypt.hash(password, saltRounds)
     const createdCompany = await CompaniesModel.createCompany({name, password: hash})
-    // console.log(createdCompany, 'this is the created comp from mongo');
     return createdCompany
+    // console.log(createdCompany, 'this is the created comp from mongo');
 }
 
 module.exports = {

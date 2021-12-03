@@ -114,10 +114,11 @@ export const CompanyProfile = (props) => {
                     <h1>Company: {loggedCompany.name}</h1>
                     <h2>Number of employees: {employees.length}</h2>
                 </div>
-                <div className='company-img'>
+                <div className='company-img' onClick = {()=> setIsCompanyEditOpen(true)}>
                     <Tooltip title='Click To Edit Company Info' arrow placement='top'>
-                    <img alt='company-img' onClick = {()=> setIsCompanyEditOpen(true)} src={loggedCompany.logo} />
+                    <img alt='company-logo' src={loggedCompany.logo} />
                     </Tooltip>
+                    <div className='img-label'>Click to edit</div>
                 </div>
             </div>
             {/* {isEmpEditOpen && <Modal open={isEmpEditOpen} onClose={toggleEmployeePopup} ><div>Modal</div> </Modal>}  */}
