@@ -9,6 +9,7 @@ import SkeletonTheme from '../cmps/SkeletonTheme';
 import Spin from 'react-cssfx-loading/lib/Spin';
 import Select from 'react-select';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
+import { snackNoEmployees } from '../snackMessages';
 
 const options = [
     { value: null, label: 'Show All' },
@@ -17,12 +18,6 @@ const options = [
 ];
 
 const { baseURL } = require('../config');
-
-const snackNoEmployees = {
-    severity: 'error',
-    open: true,
-    message: 'You need to add at least one employee first',
-};
 
 const socket = io(baseURL);
 

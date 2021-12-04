@@ -6,22 +6,7 @@ import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import companyService from '../services/companyService';
 import { Tooltip } from '@mui/material';
-
-const snackNoImg = {
-    severity: 'warning',
-    open: true,
-    message: 'You Must Upload A Photo',
-};
-const snackCompanySaved = {
-    severity: 'success',
-    open: true,
-    message: 'Company info saved successfully',
-};
-const snackError500 = {
-    severity: 'error',
-    open: true,
-    message: 'There was an Error with the server, please try again',
-};
+import { snackNoImg, snackCompanySaved, snackError500 } from '../snackMessages';
 
 export const EditCompanyPopup = ({
     company,

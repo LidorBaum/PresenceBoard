@@ -11,17 +11,8 @@ import Tooltip from '@mui/material/Tooltip';
 import { EditCompanyPopup } from '../cmps/EditCompanyPopup';
 import { ClickAwayListener } from '@mui/material';
 import Modal from '@mui/material/Modal';
-
-const snackLinkCopied = {
-    severity: 'success',
-    open: true,
-    message: 'NFC Link Copied',
-};
-const snackDeletedEmployee = {
-    severity: 'warning',
-    open: true,
-    message: 'Deleted Succesfully',
-};
+import { snackLinkCopied, snackDeletedEmployee } from '../snackMessages';
+const { modalUnstyledClasses } = require('@mui/base');
 
 export const CompanyProfile = props => {
     const showNotification = useContext(SnackbarHandlerContext);

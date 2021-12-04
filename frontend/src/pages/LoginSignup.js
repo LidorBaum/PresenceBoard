@@ -7,27 +7,12 @@ import Tooltip from '@mui/material/Tooltip';
 import Select from 'react-select';
 import companyService from '../services/companyService.js';
 import { handleErrors, isValidPassword } from '../services/utils.js';
-
-const snackMissingCreds = {
-    severity: 'error',
-    open: true,
-    message: 'Missing Name / Password',
-};
-const snackCompanyExist = {
-    severity: 'error',
-    open: true,
-    message: 'This Company Already Exist!',
-};
-const snackIncorrectPassword = {
-    severity: 'error',
-    open: true,
-    message: 'Incorrect Password!',
-};
-const snackInvalidPasswordRegex = {
-    severity: 'error',
-    open: true,
-    message: 'Password does not meet the requirements!',
-};
+import {
+    snackMissingCreds,
+    snackCompanyExist,
+    snackIncorrectPassword,
+    snackInvalidPasswordRegex,
+} from '../snackMessages';
 
 export const LoginSignup = props => {
     let history = useHistory();

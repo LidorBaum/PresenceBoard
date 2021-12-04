@@ -4,22 +4,11 @@ import employeeService from '../services/employeeService';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-
-const snackNoImg = {
-    severity: 'warning',
-    open: true,
-    message: 'You Must Upload A Photo',
-};
-const snackError500 = {
-    severity: 'error',
-    open: true,
-    message: 'There was an Error with the server, please try again',
-};
-const snackEmployeeSaved = {
-    severity: 'success',
-    open: true,
-    message: 'The employee saved successfully',
-};
+import {
+    snackNoImg,
+    snackEmployeeSaved,
+    snackError500,
+} from '../snackMessages';
 
 export const EditEmployeePopup = ({
     employeeToEdit,
