@@ -4,8 +4,6 @@ const { CompaniesModel } = require('../models/company');
 
 const companyRouter = express.Router();
 
-
-
 companyRouter.delete('/:companyId([A-Fa-f0-9]{24})', deleteCompany);
 
 companyRouter.put('/edit/:companyId([A-Fa-f0-9]{24})', editCompany);
@@ -14,13 +12,12 @@ companyRouter.get('/', getCompanies);
 
 companyRouter.get('/:companyId([A-Fa-f0-9]{24})', getCompany);
 
-
 function responseError(response, errMessage) {
     let status;
 
     switch (errMessage) {
         case Libs.Errors.CompanyValidation.CompanyDoesNotExists:
-            status = 404;    
+            status = 404;
             break;
         case Libs.Errors.TextValidation.InvalidCompanyName:
         case Libs.Errors.InvalidUrl:
@@ -53,7 +50,10 @@ async function deleteCompany(req, res) {
         const { companyId } = req.params;
         const result = await CompaniesModel.deleteCompany(companyId);
         if (result.deletedCount === 0) {
-            return responseError(res, Libs.Errors.CompanyValidation.CompanyDoesNotExists);
+            return responseError(
+                res,
+                Libs.Errors.CompanyValidation.CompanyDoesNotExists
+            );
         }
         return res.send();
     } catch (err) {
@@ -65,10 +65,14 @@ async function editCompany(req, res) {
     try {
         const { companyId } = req.params;
         const { name, logo } = req.body;
-        const newCompany =  await CompaniesModel.updateCompany(companyId, name, logo);
-        res.cookie('loggedCompany',  newCompany)
+        const newCompany = await CompaniesModel.updateCompany(
+            companyId,
+            name,
+            logo
+        );
+        res.cookie('loggedCompany', newCompany);
         return res.send(newCompany);
-    } catch(err) {
+    } catch (err) {
         return responseError(res, err.message);
     }
 }

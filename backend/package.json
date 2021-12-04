@@ -1,35 +1,35 @@
 {
-  "name": "presenceboard",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "server:dev": "set NODE_ENV=dev&& nodemon server.js",
-    "server:prod": "set NODE_ENV=prod&& nodemon server.js",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LidorBaum/PresenceBoard.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LidorBaum/PresenceBoard/issues"
-  },
-  "homepage": "https://github.com/LidorBaum/PresenceBoard#readme",
-  "dependencies": {
-    "axios": "^0.24.0",
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-ejs-layouts": "^2.5.1",
-    "express-session": "^1.17.2",
-    "joi": "^17.4.3",
-    "mongoose": "^6.0.12",
-    "socket.io": "^4.3.2",
-    "socket.io-client": "^4.3.2"
-  }
+    "name": "presenceboard",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "server:dev": "set NODE_ENV=dev&& nodemon server.js",
+        "server:prod": "set NODE_ENV=prod&& nodemon server.js",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LidorBaum/PresenceBoard.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/LidorBaum/PresenceBoard/issues"
+    },
+    "homepage": "https://github.com/LidorBaum/PresenceBoard#readme",
+    "dependencies": {
+        "axios": "^0.24.0",
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.0",
+        "cookie-parser": "^1.4.5",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-ejs-layouts": "^2.5.1",
+        "express-session": "^1.17.2",
+        "joi": "^17.4.3",
+        "mongoose": "^6.0.12",
+        "socket.io": "^4.3.2",
+        "socket.io-client": "^4.3.2"
+    }
 }

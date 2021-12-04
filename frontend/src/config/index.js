@@ -1,5 +1,4 @@
-const environment = process.env.REACT_APP_ENVIRONMENT || 'prod'
-
+const environment = process.env.REACT_APP_ENVIRONMENT || 'prod';
 
 function tryRequire(environment) {
     try {
@@ -7,7 +6,7 @@ function tryRequire(environment) {
     } catch (err) {
         if ('MODULE_NOT_FOUND' === err.code) {
             throw Error(
-                'Incorrect ENVIRONMENT variable set, exiting\nAllowed Environments:\n1. dev\n2. prod',
+                'Incorrect ENVIRONMENT variable set, exiting\nAllowed Environments:\n1. dev\n2. prod'
             );
         }
     }

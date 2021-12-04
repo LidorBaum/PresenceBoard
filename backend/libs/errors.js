@@ -6,9 +6,9 @@ exports.InvalidUrl = 'Invalid URL';
 
 exports.CompanyValidation = {
     CompanyDoesNotExists: 'Company does not exists',
-    CompanyNameAlreadyExists: 'Company name already exists'
+    CompanyNameAlreadyExists: 'Company name already exists',
 };
 
 exports.EmployeeValidation = {
-    EmployeeDoesNotExists: 'Employee Does Not Exists'
-}
+    EmployeeDoesNotExists: 'Employee Does Not Exists',
+};

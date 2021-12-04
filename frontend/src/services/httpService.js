@@ -1,42 +1,39 @@
 import Axios from 'axios';
-const { baseURL, env } = require('../config')
+const { baseURL, env } = require('../config');
 
-console.log(env, "this is the environment for react");
-const API_URL = `${baseURL}/api/`
+console.log(env, 'this is the environment for react');
+const API_URL = `${baseURL}/api/`;
 const axios = Axios.create({
-    withCredentials: true
+    withCredentials: true,
 });
 
 // axios.defaults.withCredentials = true;
 
-
-
 export default {
     get(endpoint, data) {
-        return ajax(endpoint, 'GET', data)
+        return ajax(endpoint, 'GET', data);
     },
     post(endpoint, data) {
-        return ajax(endpoint, 'POST', data)
+        return ajax(endpoint, 'POST', data);
     },
     put(endpoint, data) {
-        return ajax(endpoint, 'PUT', data)
+        return ajax(endpoint, 'PUT', data);
     },
     delete(endpoint, data) {
-        return ajax(endpoint, 'DELETE', data)
-    }
-}
+        return ajax(endpoint, 'DELETE', data);
+    },
+};
 
 async function ajax(endpoint, method = 'get', data = null) {
-    try{
+    try {
         const res = await axios({
             url: `${API_URL}${endpoint}`,
             method,
-            data
-        })
+            data,
+        });
         return res.data;
-    }
-    catch(err){
+    } catch (err) {
         console.log(err.message);
-        throw err
+        throw err;
     }
 }

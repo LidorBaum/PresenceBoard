@@ -13,7 +13,7 @@ const CompanySchema = Schema(
             validate: {
                 validator: Libs.Validators.isValidCompanyName,
                 message: Libs.Errors.TextValidation.InvalidCompanyName,
-            }
+            },
         },
         logo: {
             type: String,
@@ -22,26 +22,31 @@ const CompanySchema = Schema(
                 validator: Libs.Validators.isValidUrl,
                 message: Libs.Errors.InvalidUrl,
             },
-            default: "https://res.cloudinary.com/echoshare/image/upload/v1638283806/upload_tjvouf.png"
+            default:
+                'https://res.cloudinary.com/echoshare/image/upload/v1638283806/upload_tjvouf.png',
         },
         password: {
             type: String,
-            required: true
+            required: true,
         },
     },
     {
         collection: 'companies',
         versionKey: false,
         timestamps: true,
-
     }
 );
 
 CompanySchema.set('autoIndex', true);
 
 CompanySchema.statics.createCompany = async function (companyObj) {
-    companyObj.logo = 'https://res.cloudinary.com/echoshare/image/upload/v1638283806/upload_tjvouf.png'
-    const isExist = Boolean(await this.findOne({ name: { $regex: new RegExp(companyObj.name, 'i') } }))
+    companyObj.logo =
+        'https://res.cloudinary.com/echoshare/image/upload/v1638283806/upload_tjvouf.png';
+    const isExist = Boolean(
+        await this.findOne({
+            name: { $regex: new RegExp(companyObj.name, 'i') },
+        })
+    );
     if (isExist) {
         throw new Error(Libs.Errors.CompanyValidation.CompanyNameAlreadyExists);
     }
@@ -50,17 +55,21 @@ CompanySchema.statics.createCompany = async function (companyObj) {
 
 CompanySchema.statics.deleteCompany = function (companyId) {
     return this.deleteOne({ _id: companyId });
-}
+};
 
 CompanySchema.statics.getById = function (companyId) {
-    return this.findById(companyId)
+    return this.findById(companyId);
 };
 
 CompanySchema.statics.getCompanies = function () {
     return this.find({}).sort({ name: 1 }).exec();
-}
+};
 
-CompanySchema.statics.updateCompany = async function (companyId, newName, newLogo) {
+CompanySchema.statics.updateCompany = async function (
+    companyId,
+    newName,
+    newLogo
+) {
     const companyObj = await this.getById(companyId);
     let setObject = {};
 
@@ -87,7 +96,7 @@ CompanySchema.statics.updateCompany = async function (companyId, newName, newLog
         { _id: companyId },
         { $set: setObject },
         { new: true }
-    )
+    );
 };
 
 exports.CompaniesModel = db.connection.model('Company', CompanySchema);
