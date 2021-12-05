@@ -23,7 +23,7 @@ const socket = io(baseURL);
 
 export const Board = props => {
     let history = useHistory();
-    const showNotification = useContext(SnackbarHandlerContext);
+    const notificationHandler = useContext(SnackbarHandlerContext);
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
     const [employees, setEmployees] = useState(null);
     const [isDataChanged, setIsDataChanged] = useState(false);
@@ -45,7 +45,7 @@ export const Board = props => {
                 filterBy.text === '' &&
                 filterBy.presence === null
             ) {
-                showNotification(snackNoEmployees);
+                notificationHandler.error(snackNoEmployees)
                 return history.push('/company');
             }
             setEmployees(res);

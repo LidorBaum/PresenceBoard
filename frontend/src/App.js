@@ -35,8 +35,31 @@ function App() {
         });
     };
 
-    const showNotification = snackObj => {
+    const notificationHandler = {
+        success: message => showNotification('success', message),
+        error: message => showNotification('error', message),
+        info: message => showNotification('info', message),
+        warning: message => showNotification('warning', message)
+    }
+
+
+    const showNotification = (severity, message) => {
         console.log('I AM SHOWING NOTIFICATION FROM ROOT');
+        const snackObj = { severity, message, open: true }
+        if (snack.open) {
+            setSnack(prevSnack => {
+                return { ...prevSnack, open: false };
+            });
+            return setTimeout(() => {
+                setSnack(snackObj);
+            }, 100);
+        } else setSnack(snackObj);
+    };
+
+
+    const showNotificationOld = snackObj => {
+        console.log('I AM SHOWING NOTIFICATION FROM ROOT');
+
         if (snack.open) {
             setSnack(prevSnack => {
                 return { ...prevSnack, open: false };
@@ -53,7 +76,7 @@ function App() {
                 <CompanyContext.Provider
                     value={{ loggedCompany, setLoggedCompany }}
                 >
-                    <SnackbarHandlerContext.Provider value={showNotification}>
+                    <SnackbarHandlerContext.Provider value={notificationHandler}>
                         <SnackbarContext.Provider value={{ snack, setSnack }}>
                             {
                                 <Snackbar

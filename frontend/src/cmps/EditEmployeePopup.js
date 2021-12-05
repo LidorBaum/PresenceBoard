@@ -4,20 +4,21 @@ import employeeService from '../services/employeeService';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import {
-    snackNoImg,
-    snackEmployeeSaved,
-    snackError500,
-} from '../snackMessages';
+import 
+    {snackNoImg,
+    snackEmployeeSaved}
+    
+ from '../snackMessages';
+
+
 
 export const EditEmployeePopup = ({
     employeeToEdit,
     companyId,
     company,
     handleClose,
-    handleClickAway,
 }) => {
-    const showNotification = useContext(SnackbarHandlerContext);
+    const notificationHandler = useContext(SnackbarHandlerContext);
     const [empForm, setForm] = useState({
         firstName: employeeToEdit.firstName,
         lastName: employeeToEdit.lastName,
@@ -34,7 +35,7 @@ export const EditEmployeePopup = ({
     };
     const [primaryImgUrl, setPrimaryUrl] = useState(
         employeeToEdit.image ||
-            'https://res.cloudinary.com/echoshare/image/upload/v1638211337/1997805_dje7p6.png'
+        'https://res.cloudinary.com/echoshare/image/upload/v1638211337/1997805_dje7p6.png'
     );
     const onUploadImg = async e => {
         e.persist();
@@ -52,7 +53,7 @@ export const EditEmployeePopup = ({
             'https://res.cloudinary.com/echoshare/image/upload/v1638211337/1997805_dje7p6.png'
         ) {
             setIsLoading(false);
-            return showNotification(snackNoImg);
+            return notificationHandler.error(snackNoImg);
         }
 
         const employee = {
@@ -63,31 +64,29 @@ export const EditEmployeePopup = ({
         };
 
         if (employeeToEdit._id) {
-            try {
-                employee._id = employeeToEdit._id;
-                await employeeService.updateEmployee(employee);
-                showNotification(snackEmployeeSaved);
-                handleClose('update');
-            } catch (err) {
-                if (err.response?.status === 500 || !err.response) {
-                    showNotification(snackError500);
-                    setIsLoading(false);
-                }
+            employee._id = employeeToEdit._id;
+            const updatedEmpObj = await employeeService.updateEmployee(employee);
+            if (updatedEmpObj.error) {
+                notificationHandler.error(updatedEmpObj.error.message)
+                return setIsLoading(false);
             }
-        } else {
+            notificationHandler.success(snackEmployeeSaved)
+            handleClose('update');
+        }
+        else {
             console.log(('Empl to add:', employee));
-            try {
                 const newEmployeeObj = await employeeService.addEmployee(
                     employee
                 );
-                showNotification(snackEmployeeSaved);
-                handleClose('new', newEmployeeObj);
-            } catch (err) {
-                if (err.response?.status === 500 || !err.response) {
-                    showNotification(snackError500);
+                if(newEmployeeObj.error){
+                    notificationHandler.error(newEmployeeObj.error.message)
+                    return setIsLoading(false);
                 }
-                setIsLoading(false);
-            }
+                notificationHandler.success(snackEmployeeSaved)
+                handleClose('new', newEmployeeObj);
+
+               
+            
         }
     };
 

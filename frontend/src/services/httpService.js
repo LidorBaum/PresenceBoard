@@ -33,7 +33,17 @@ async function ajax(endpoint, method = 'get', data = null) {
         });
         return res.data;
     } catch (err) {
-        console.log(err.response.status);
-        throw err
+        if (!err.response) return {
+            error: {
+                message: 'Oops, there is a problem with the server, please try again',
+                status: 500
+            }
+        }
+        return {
+            error: {
+                message: err.response.data,
+                status: err.response.status
+            }
+        }
     }
 }

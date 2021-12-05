@@ -15,7 +15,7 @@ import { snackLinkCopied, snackDeletedEmployee } from '../snackMessages';
 const { modalUnstyledClasses } = require('@mui/base');
 
 export const CompanyProfile = props => {
-    const showNotification = useContext(SnackbarHandlerContext);
+    const notificationHandler = useContext(SnackbarHandlerContext);
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
 
     const [isEmpEditOpen, setIsEmpEditOpen] = useState(false);
@@ -88,10 +88,12 @@ export const CompanyProfile = props => {
     };
 
     const deleteEmployee = async employeeId => {
-        console.log('I AM DELETEING');
-        await employeeService.removeEmployee(employeeId);
+        const res = await employeeService.removeEmployee(employeeId);
+        if(res.error){
+            return notificationHandler.error(res.error.message)
+        }
         setDoRefresh(!isRefresh);
-        showNotification(snackDeletedEmployee);
+        notificationHandler.warning(snackDeletedEmployee)
     };
 
     const showInfo = employee => {
@@ -99,8 +101,9 @@ export const CompanyProfile = props => {
     };
 
     const notifyCopyNFC = () => {
-        showNotification(snackLinkCopied);
+        notificationHandler.success(snackLinkCopied)
     };
+
     const updateLoggedCompany = newCompanyObj => {
         setLoggedCompany(prevCompany => {
             return {

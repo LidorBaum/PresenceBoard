@@ -6,15 +6,14 @@ import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import companyService from '../services/companyService';
 import { Tooltip } from '@mui/material';
-import { snackNoImg, snackCompanySaved, snackError500 } from '../snackMessages';
+import { snackNoImg, snackCompanySaved } from '../snackMessages';
 
 export const EditCompanyPopup = ({
     company,
     handleClose,
     updateLoggedCompany,
-    handleClickAway,
 }) => {
-    const showNotification = useContext(SnackbarHandlerContext);
+    const notificationHandler = useContext(SnackbarHandlerContext);
 
     const [companyForm, setForm] = useState({
         name: company.name,
@@ -48,7 +47,7 @@ export const EditCompanyPopup = ({
         console.log(companyForm, 'company form');
         if (!companyForm.logo) {
             setIsLoading(false);
-            return showNotification(snackNoImg);
+            return notificationHandler.warning(snackNoImg);
         }
 
         const companyObj = {
@@ -56,18 +55,18 @@ export const EditCompanyPopup = ({
             logo: companyForm.logo,
         };
         companyObj._id = company._id;
-        try {
+
             const newCompanyObject = await companyService.updateCompany(
                 companyObj
             );
-            updateLoggedCompany(newCompanyObject);
-            showNotification(snackCompanySaved);
-            handleClose();
-        } catch (err) {
-            if (err.response?.status === 500 || !err.response) {
-                showNotification(snackError500);
+            if(newCompanyObject.error){
+                notificationHandler.error(newCompanyObject.error.message)
+                return setIsLoading(false)
             }
-        }
+            notificationHandler.success(snackCompanySaved)
+            updateLoggedCompany(newCompanyObject);
+            handleClose();
+        
     };
 
     return (
