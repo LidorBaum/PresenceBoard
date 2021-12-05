@@ -33,7 +33,7 @@ async function ajax(endpoint, method = 'get', data = null) {
         });
         return res.data;
     } catch (err) {
-        console.log(err.message);
-        throw err;
+        console.log(err.response.status);
+        throw err
     }
 }

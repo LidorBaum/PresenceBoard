@@ -10,6 +10,7 @@ router.post('/logout', logout);
 
 function responseError(response, errMessage) {
     let status;
+    console.log(errMessage);
     switch (errMessage) {
         case Libs.Errors.CompanyValidation.CompanyDoesNotExists:
             status = 404;

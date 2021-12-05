@@ -86,7 +86,7 @@ export const LoginSignup = props => {
             setLoggedCompany(company);
             history.push('/board');
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
             showNotification(snackIncorrectPassword);
             setIsLoading(false);
         }
