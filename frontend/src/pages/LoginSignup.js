@@ -7,15 +7,18 @@ import Tooltip from '@mui/material/Tooltip';
 import Select from 'react-select';
 import companyService from '../services/companyService.js';
 import { isValidPassword } from '../services/utils.js';
-import { snackMissingCreds, snackInvalidPasswordRegex } from '../snackMessages.js';
+import {
+    snackMissingCreds,
+    snackInvalidPasswordRegex,
+} from '../snackMessages.js';
 export const LoginSignup = props => {
     let history = useHistory();
-    
+
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
     if (loggedCompany) history.push('/board');
     const [isLoading, setIsLoading] = useState(false);
     const notificationHandler = useContext(SnackbarHandlerContext);
-    
+
     const signupButton = useRef(null);
     const [companies, setCompanies] = useState(null);
 
@@ -71,21 +74,19 @@ export const LoginSignup = props => {
         const { companyId, password } = loginCred;
         if (!companyId || !password) {
             setIsLoading(false);
-            return notificationHandler.error(snackMissingCreds)
+            return notificationHandler.error(snackMissingCreds);
         }
-            const company = await companyService.loginCompany({
-                companyId: companyId,
-                password,
-            });
-            if(company.error){
-                notificationHandler.error(company.error.message)
-                setIsLoading(false);
-                return
-            }
-            setLoggedCompany(company);
-            history.push('/board');
-
-        
+        const company = await companyService.loginCompany({
+            companyId: companyId,
+            password,
+        });
+        if (company.error) {
+            notificationHandler.error(company.error.message);
+            setIsLoading(false);
+            return;
+        }
+        setLoggedCompany(company);
+        history.push('/board');
     };
 
     const doSignup = async ev => {
@@ -94,20 +95,20 @@ export const LoginSignup = props => {
         const { companyName, password } = signupCred;
         if (!companyName || !password) {
             setIsLoading(false);
-            return notificationHandler.error(snackMissingCreds)
+            return notificationHandler.error(snackMissingCreds);
         }
         if (!isValidPassword(password)) {
             setIsLoading(false);
-            return notificationHandler.error(snackInvalidPasswordRegex)
+            return notificationHandler.error(snackInvalidPasswordRegex);
         }
         const company = await companyService.signupCompany({
             name: companyName,
             password,
         });
         if (company.error) {
-            notificationHandler.error(company.error.message)
+            notificationHandler.error(company.error.message);
             setIsLoading(false);
-            return
+            return;
         }
 
         setLoggedCompany(company);

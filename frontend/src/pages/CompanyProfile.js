@@ -89,11 +89,11 @@ export const CompanyProfile = props => {
 
     const deleteEmployee = async employeeId => {
         const res = await employeeService.removeEmployee(employeeId);
-        if(res.error){
-            return notificationHandler.error(res.error.message)
+        if (res.error) {
+            return notificationHandler.error(res.error.message);
         }
         setDoRefresh(!isRefresh);
-        notificationHandler.warning(snackDeletedEmployee)
+        notificationHandler.warning(snackDeletedEmployee);
     };
 
     const showInfo = employee => {
@@ -101,7 +101,7 @@ export const CompanyProfile = props => {
     };
 
     const notifyCopyNFC = () => {
-        notificationHandler.success(snackLinkCopied)
+        notificationHandler.success(snackLinkCopied);
     };
 
     const updateLoggedCompany = newCompanyObj => {

@@ -4,13 +4,7 @@ import employeeService from '../services/employeeService';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import 
-    {snackNoImg,
-    snackEmployeeSaved}
-    
- from '../snackMessages';
-
-
+import { snackNoImg, snackEmployeeSaved } from '../snackMessages';
 
 export const EditEmployeePopup = ({
     employeeToEdit,
@@ -35,7 +29,7 @@ export const EditEmployeePopup = ({
     };
     const [primaryImgUrl, setPrimaryUrl] = useState(
         employeeToEdit.image ||
-        'https://res.cloudinary.com/echoshare/image/upload/v1638211337/1997805_dje7p6.png'
+            'https://res.cloudinary.com/echoshare/image/upload/v1638211337/1997805_dje7p6.png'
     );
     const onUploadImg = async e => {
         e.persist();
@@ -65,28 +59,24 @@ export const EditEmployeePopup = ({
 
         if (employeeToEdit._id) {
             employee._id = employeeToEdit._id;
-            const updatedEmpObj = await employeeService.updateEmployee(employee);
+            const updatedEmpObj = await employeeService.updateEmployee(
+                employee
+            );
             if (updatedEmpObj.error) {
-                notificationHandler.error(updatedEmpObj.error.message)
+                notificationHandler.error(updatedEmpObj.error.message);
                 return setIsLoading(false);
             }
-            notificationHandler.success(snackEmployeeSaved)
+            notificationHandler.success(snackEmployeeSaved);
             handleClose('update');
-        }
-        else {
+        } else {
             console.log(('Empl to add:', employee));
-                const newEmployeeObj = await employeeService.addEmployee(
-                    employee
-                );
-                if(newEmployeeObj.error){
-                    notificationHandler.error(newEmployeeObj.error.message)
-                    return setIsLoading(false);
-                }
-                notificationHandler.success(snackEmployeeSaved)
-                handleClose('new', newEmployeeObj);
-
-               
-            
+            const newEmployeeObj = await employeeService.addEmployee(employee);
+            if (newEmployeeObj.error) {
+                notificationHandler.error(newEmployeeObj.error.message);
+                return setIsLoading(false);
+            }
+            notificationHandler.success(snackEmployeeSaved);
+            handleClose('new', newEmployeeObj);
         }
     };
 

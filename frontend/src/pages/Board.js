@@ -45,7 +45,7 @@ export const Board = props => {
                 filterBy.text === '' &&
                 filterBy.presence === null
             ) {
-                notificationHandler.error(snackNoEmployees)
+                notificationHandler.error(snackNoEmployees);
                 return history.push('/company');
             }
             setEmployees(res);

@@ -56,17 +56,14 @@ export const EditCompanyPopup = ({
         };
         companyObj._id = company._id;
 
-            const newCompanyObject = await companyService.updateCompany(
-                companyObj
-            );
-            if(newCompanyObject.error){
-                notificationHandler.error(newCompanyObject.error.message)
-                return setIsLoading(false)
-            }
-            notificationHandler.success(snackCompanySaved)
-            updateLoggedCompany(newCompanyObject);
-            handleClose();
-        
+        const newCompanyObject = await companyService.updateCompany(companyObj);
+        if (newCompanyObject.error) {
+            notificationHandler.error(newCompanyObject.error.message);
+            return setIsLoading(false);
+        }
+        notificationHandler.success(snackCompanySaved);
+        updateLoggedCompany(newCompanyObject);
+        handleClose();
     };
 
     return (
