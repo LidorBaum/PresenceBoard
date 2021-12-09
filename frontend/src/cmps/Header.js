@@ -4,15 +4,20 @@ import { CompanyContext } from '../contexts/CompanyContext';
 import Cookies from 'js-cookie';
 import { useHistory } from 'react-router-dom';
 import companyService from '../services/companyService';
+import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
+
 
 export function Header(props) {
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
     let history = useHistory();
+    const notificationHandler = useContext(SnackbarHandlerContext);
 
     useEffect(() => {}, [loggedCompany]);
 
     const onLogout = async () => {
-        await companyService.logoutCompany();
+        const res = await companyService.logoutCompany();
+        if(res?.error) return notificationHandler.error(res.error.message)
+        console.log('I am here');
         setLoggedCompany(null);
         history.push('/');
     };

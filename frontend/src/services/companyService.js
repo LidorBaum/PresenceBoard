@@ -9,11 +9,17 @@ export default {
     getCompanyById,
     removeCompany,
     updateCompany,
+    checkCompanyNameAvailability,
 };
 
 function getCompanies() {
     return httpService.get('company');
 }
+
+function checkCompanyNameAvailability(companyName){
+    return httpService.get(`company/name/${companyName}`)
+}
+
 //company
 function getCompanyById(companyId) {
     return httpService.get(`company/${companyId}`);
@@ -35,7 +41,8 @@ async function signupCompany(signupCred) {
     return _handleLoginCompany(company);
 }
 async function logoutCompany() {
-    await httpService.post('auth/logout');
+    const res = await httpService.post('auth/logout');
+    if(res.error) return res
     Cookies.remove('loggedCompany');
     sessionStorage.clear();
 }

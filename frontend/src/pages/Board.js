@@ -40,6 +40,7 @@ export const Board = props => {
                 loggedCompany._id,
                 filterBy
             );
+            if(res.error)  return notificationHandler.error(res.error.message)
             if (
                 !res.length &&
                 filterBy.text === '' &&
@@ -65,22 +66,17 @@ export const Board = props => {
         socket.emit('board_page', loggedCompany._id);
     }, [loggedCompany]);
 
-    const onLogout = async () => {
-        await companyService.logoutCompany();
-        setLoggedCompany(null);
-        history.push('/');
-    };
     const onChangePresence = async employeeId => {
         console.log(employeeId);
-        try {
+        const res = await employeeService.updateEmployeePresence(
+            employeeId
+        );
+        if(res.error){
+            return notificationHandler.error(res.error.message)
+        }  
             document
                 .getElementById(`${employeeId}-img`)
                 .classList.toggle('gray');
-            const res = await employeeService.updateEmployeePresence(
-                employeeId
-            );
-            console.log(res);
-
             await socket.emit('update_board', {
                 companyId: loggedCompany._id,
                 employeeId: employeeId,
@@ -89,16 +85,16 @@ export const Board = props => {
             // document.getElementById(`${employeeId}-card`).classList.add('opacity')
             // setIsDataChanged(!isDataChanged)
             setTimeout(() => setIsDataChanged(!isDataChanged), 1000);
-        } catch (err) {
-            //NEED TO HANDLE ERROR!!!
-            console.log(err);
-        }
+        
     };
 
     const refreshBoard = async ({ companyId, employeeId }) => {
         console.log('I NEED TO REFRESH');
         document.getElementById(`${employeeId}`).classList.toggle('gray');
         const res = await employeeService.getAllEmployeesInCompany(companyId);
+        if(res.error){
+            return notificationHandler.error(res.error.message)
+        }
         console.log(res, 'res');
         setEmployees(res);
     };
@@ -127,7 +123,6 @@ export const Board = props => {
     if (!loggedCompany) history.push('/');
     return (
         <div>
-            <button onClick={onLogout}>Logout</button>
             <div className="filter-container">
                 <input
                     className="text-search"

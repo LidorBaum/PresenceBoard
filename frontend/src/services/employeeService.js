@@ -40,9 +40,8 @@ function updateEmployee(employeeObj) {
     return httpService.put(`employee/edit/${employeeObj._id}`, employeeObj);
 }
 
-function updateEmployeePresence(employeeId, isPresence) {
-    console.log(employeeId, isPresence);
-    return httpService.put(`employee/presence`, { employeeId, isPresence });
+function updateEmployeePresence(employeeId) {
+    return httpService.put(`employee/presence`, { employeeId });
 }
 
 async function addEmployee(employeeObj) {

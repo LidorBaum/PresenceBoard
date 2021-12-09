@@ -10,6 +10,8 @@ companyRouter.put('/edit/:companyId([A-Fa-f0-9]{24})', editCompany);
 
 companyRouter.get('/', getCompanies);
 
+companyRouter.get('/name/:companyName', checkNameAvailability);
+
 companyRouter.get('/:companyId([A-Fa-f0-9]{24})', getCompany);
 
 function responseError(response, errMessage) {
@@ -44,6 +46,16 @@ function responseError(response, errMessage) {
 //         return responseError(res, err.message);
 //     }
 // }
+
+async function checkNameAvailability(req,res){
+    try{
+        const isAvailable = await CompaniesModel.checkNameAvailability(req.params.companyName)
+        res.send(isAvailable)
+    } catch(err){
+        return responseError(res, err.message);
+
+    }
+}
 
 async function deleteCompany(req, res) {
     try {

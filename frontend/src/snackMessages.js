@@ -5,6 +5,7 @@ const snackCompanySaved = 'Company info saved successfully';
 const snackEmployeeSaved = 'The employee saved successfully';
 const snackNoEmployees = 'You need to add at least one employee first';
 const snackMissingCreds = 'Missing Name / Password';
+const snackNameUnavailable = 'This company already exist';
 const snackInvalidPasswordRegex = 'Password does not meet the requirements!';
 
 module.exports = {
@@ -16,4 +17,5 @@ module.exports = {
     snackNoEmployees,
     snackMissingCreds,
     snackInvalidPasswordRegex,
+    snackNameUnavailable,
 };

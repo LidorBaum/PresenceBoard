@@ -7,11 +7,6 @@ export const Home = props => {
     const { loggedCompany } = useContext(CompanyContext);
     let history = useHistory();
 
-    const retrieveComps = async () => {
-        const comps = await companyService.getCompanies();
-        console.log(comps);
-    };
-
     const onLogin = () => {
         history.push('/login');
     };
@@ -37,7 +32,6 @@ export const Home = props => {
                 </div>
             </div>
             <div>HELLO</div>
-            <button onClick={retrieveComps}>RETRIEVE</button>
         </>
     );
 };

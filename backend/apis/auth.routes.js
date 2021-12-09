@@ -22,6 +22,9 @@ function responseError(response, errMessage) {
         case Libs.Errors.CompanyValidation.CompanyNameAlreadyExists:
             status = 403;
             break;
+        case Libs.Errors.CompanyValidation.CompanyPasswordNotMatch:
+            status = 401;
+            break;
         default:
             status = 500;
             break;
@@ -43,8 +46,7 @@ async function login(req, res) {
         res.cookie('loggedCompany', returnedCompany);
         res.send(returnedCompany);
     } catch (err) {
-        // console.log(err);
-        res.status(401).send({ error: err });
+        return responseError(res, err.message);
     }
 }
 

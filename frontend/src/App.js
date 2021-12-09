@@ -12,7 +12,6 @@ import Cookies from 'js-cookie';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-import { Button } from '@mui/material';
 
 function App() {
     const [loggedCompany, setLoggedCompany] = useState(null);

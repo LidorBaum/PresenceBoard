@@ -35,6 +35,10 @@ export const EditCompanyPopup = ({
         e.persist();
         setIsUploading(true);
         const url = await uploadImg(e);
+        if(url.error){
+            notificationHandler.error(url.error.message);
+            return setIsLoading(false);
+        }
         setForm(prevForm => {
             return { ...prevForm, logo: url };
         });

@@ -4,13 +4,12 @@ import ReactTooltip from 'react-tooltip';
 
 export function BoardEmployeePreview({ emp, onChangePresence }) {
     const [isLoading, setIsLoading] = useState(false);
-
     const onChangePresenceClick = async employeeId => {
         console.log('HERE?');
         setIsLoading(true);
         await onChangePresence(employeeId);
-        setIsLoading(false);
-    };
+        return setIsLoading(false);
+    }
     return (
         <article
             id={`${emp._id}-card`}

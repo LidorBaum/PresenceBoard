@@ -71,6 +71,9 @@ export const CompanyProfile = props => {
                 null,
                 'list'
             );
+            if(res.error){
+                return notificationHandler.error(res.error.message)
+            }
             setEmployees(res);
         };
         getEmployees();

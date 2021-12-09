@@ -5,7 +5,6 @@ export const EmployeeInfoPopup = ({
     employee,
     handleClose,
     notifyCopyNFC,
-    handleClickAway,
 }) => {
     console.log(notifyCopyNFC);
     const onCopyNFC = () => {

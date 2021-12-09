@@ -35,6 +35,10 @@ export const EditEmployeePopup = ({
         e.persist();
         setIsUploading(true);
         const url = await uploadImg(e);
+        if(url.error){
+            notificationHandler.error(url.error.message);
+            return setIsLoading(false);
+        }
         setPrimaryUrl(url);
         setIsUploading(false);
     };
