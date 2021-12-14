@@ -6,7 +6,10 @@ const saltRounds = 10;
 async function login(companyId, password) {
     const company = await CompaniesModel.getById(companyId);
     const match = await bcrypt.compare(password, company.password);
-    if (!match) return Promise.reject({message: 'Password or company name is not valid'});
+    if (!match)
+        return Promise.reject({
+            message: 'Password or company name is not valid',
+        });
     delete company.password;
     return company;
 }

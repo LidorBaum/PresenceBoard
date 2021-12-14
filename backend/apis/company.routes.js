@@ -47,13 +47,14 @@ function responseError(response, errMessage) {
 //     }
 // }
 
-async function checkNameAvailability(req,res){
-    try{
-        const isAvailable = await CompaniesModel.checkNameAvailability(req.params.companyName)
-        res.send(isAvailable)
-    } catch(err){
+async function checkNameAvailability(req, res) {
+    try {
+        const isAvailable = await CompaniesModel.checkNameAvailability(
+            req.params.companyName
+        );
+        res.send(isAvailable);
+    } catch (err) {
         return responseError(res, err.message);
-
     }
 }
 

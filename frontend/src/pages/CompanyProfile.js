@@ -12,6 +12,7 @@ import { EditCompanyPopup } from '../cmps/EditCompanyPopup';
 import { ClickAwayListener } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { snackLinkCopied, snackDeletedEmployee } from '../snackMessages';
+import Spin from 'react-cssfx-loading/lib/Spin';
 const { modalUnstyledClasses } = require('@mui/base');
 
 export const CompanyProfile = props => {
@@ -71,8 +72,8 @@ export const CompanyProfile = props => {
                 null,
                 'list'
             );
-            if(res.error){
-                return notificationHandler.error(res.error.message)
+            if (res.error) {
+                return notificationHandler.error(res.error.message);
             }
             setEmployees(res);
         };
@@ -118,13 +119,24 @@ export const CompanyProfile = props => {
         sessionStorage.setItem('company', JSON.stringify(newCompanyObj));
     };
 
-    if (!loggedCompany || !employees) return <div>Loading...</div>;
+    if (!loggedCompany || !employees)
+        return (
+            <div className="table-loader">
+                <Spin
+                    color="#FF0000"
+                    border-color="#0d6efd"
+                    width="100px"
+                    height="100px"
+                    duration="1s"
+                />
+            </div>
+        );
     return (
         <div className="company-profile-container">
             <div className="info-logo">
                 <div>
-                    <h1>Company: {loggedCompany.name}</h1>
-                    <h2>Number of employees: {employees.length}</h2>
+                    <h1>{loggedCompany.name}</h1>
+                    <h2>Employees: {employees.length}</h2>
                 </div>
                 <div
                     className="company-img"
@@ -167,7 +179,6 @@ export const CompanyProfile = props => {
                 />
             )}
             <Button variant="contained" onClick={() => toggleEmployeePopup()}>
-                {' '}
                 Add new Employee
             </Button>
             <div className="employees-table">
@@ -180,7 +191,15 @@ export const CompanyProfile = props => {
                         employees={employees}
                     />
                 ) : (
-                    <div>LOADING</div>
+                    <div className="board-loader">
+                        <Spin
+                            color="#FF0000"
+                            border-color="#0d6efd"
+                            width="100px"
+                            height="100px"
+                            duration="1s"
+                        />
+                    </div>
                 )}
             </div>
         </div>

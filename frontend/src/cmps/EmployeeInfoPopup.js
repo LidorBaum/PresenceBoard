@@ -1,11 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 
-export const EmployeeInfoPopup = ({
-    employee,
-    handleClose,
-    notifyCopyNFC,
-}) => {
+export const EmployeeInfoPopup = ({ employee, handleClose, notifyCopyNFC }) => {
     console.log(notifyCopyNFC);
     const onCopyNFC = () => {
         navigator.clipboard.writeText(

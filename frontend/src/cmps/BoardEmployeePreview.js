@@ -9,7 +9,7 @@ export function BoardEmployeePreview({ emp, onChangePresence }) {
         setIsLoading(true);
         await onChangePresence(employeeId);
         return setIsLoading(false);
-    }
+    };
     return (
         <article
             id={`${emp._id}-card`}

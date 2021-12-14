@@ -26,6 +26,11 @@
         }
     }
 }
+.table-loader {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+}
 
 .employees-table {
     margin: 0 auto;
@@ -36,7 +41,19 @@ table {
     table-layout: fixed;
 }
 .table-header {
-    background-color: rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+    table {
+        border-collapse: collapse;
+        position: relative;
+        tr {
+            background-color: rgba(255, 100, 255, 0.8);
+            position: sticky;
+            top: 0;
+            th {
+                color: greenyellow;
+            }
+        }
+    }
 }
 th {
     padding: 20px 5px;

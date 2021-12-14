@@ -16,8 +16,8 @@ function getCompanies() {
     return httpService.get('company');
 }
 
-function checkCompanyNameAvailability(companyName){
-    return httpService.get(`company/name/${companyName}`)
+function checkCompanyNameAvailability(companyName) {
+    return httpService.get(`company/name/${companyName}`);
 }
 
 //company
@@ -42,7 +42,7 @@ async function signupCompany(signupCred) {
 }
 async function logoutCompany() {
     const res = await httpService.post('auth/logout');
-    if(res.error) return res
+    if (res.error) return res;
     Cookies.remove('loggedCompany');
     sessionStorage.clear();
 }

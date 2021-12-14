@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
     box-sizing: border-box;
@@ -14,7 +14,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        font-family: "Montserrat", sans-serif;
+        font-family: 'Montserrat', sans-serif;
         height: 100vh;
         margin: -20px 0 50px;
     }
@@ -75,15 +75,15 @@
         gap: 5px;
         align-items: center;
         position: relative;
-        
-        
+
         .available-icon {
             position: absolute;
             top: 25%;
             left: 88%;
             width: 25px;
             height: 25px;
-            filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(100deg) brightness(95%) contrast(80%);
+            filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(100deg)
+                brightness(95%) contrast(80%);
         }
         .unavailable-icon {
             position: absolute;
@@ -91,7 +91,8 @@
             left: 88%;
             width: 25px;
             height: 25px;
-            filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(315deg) brightness(95%) contrast(80%);
+            filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(315deg)
+                brightness(95%) contrast(80%);
         }
     }
 
@@ -119,7 +120,8 @@
     .container {
         background-color: #fff;
         border-radius: 10px;
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+            0 10px 10px rgba(0, 0, 0, 0.22);
         position: relative;
         overflow: hidden;
         width: 768px;
@@ -190,7 +192,11 @@
 
     .overlay {
         background: #00b1dd;
-        background: -webkit-linear-gradient(to right, #00b1dd, rgb(192, 0, 199));
+        background: -webkit-linear-gradient(
+            to right,
+            #00b1dd,
+            rgb(192, 0, 199)
+        );
         background: linear-gradient(to right, #00b1dd, rgb(237, 36, 255));
         background-repeat: no-repeat;
         background-size: cover;

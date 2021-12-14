@@ -54,7 +54,6 @@ function App() {
         } else setSnack(snackObj);
     };
 
-
     return (
         <div className="App">
             <Router>

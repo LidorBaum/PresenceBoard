@@ -58,10 +58,13 @@ CompanySchema.statics.deleteCompany = function (companyId) {
 };
 
 CompanySchema.statics.checkNameAvailability = async function (companyName) {
-    const regExp = new RegExp("^" + companyName + "$", 'i');
-    return Boolean(!(await this.findOne({
-        name: { $regex: regExp}})))
-}
+    const regExp = new RegExp('^' + companyName + '$', 'i');
+    return Boolean(
+        !(await this.findOne({
+            name: { $regex: regExp },
+        }))
+    );
+};
 
 CompanySchema.statics.getById = function (companyId) {
     return this.findById(companyId);

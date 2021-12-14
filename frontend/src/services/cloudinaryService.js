@@ -13,6 +13,11 @@ export async function uploadImg(ev) {
         const data = await res.json();
         return data.secure_url;
     } catch (err) {
-        return { error: { message: 'Oops, could not upload the image to server, try again' } }
+        return {
+            error: {
+                message:
+                    'Oops, could not upload the image to server, try again',
+            },
+        };
     }
 }

@@ -22,7 +22,7 @@ export const LoginSignup = props => {
 
     const signupButton = useRef(null);
     const [companies, setCompanies] = useState(null);
-    const [isAvailable, setIsAvailable] = useState(false)
+    const [isAvailable, setIsAvailable] = useState(false);
     const [loginCred, setLogin] = useState({ companyId: '', password: '' });
     const [signupCred, setSignup] = useState({ companyName: '', password: '' });
 
@@ -46,8 +46,8 @@ export const LoginSignup = props => {
     useEffect(() => {
         const getCompanies = async () => {
             const res = await companyService.getCompanies();
-            if(res.error){
-                return notificationHandler.error(res.error.message)
+            if (res.error) {
+                return notificationHandler.error(res.error.message);
             }
             const companiesMap = [];
             console.log(res);
@@ -64,7 +64,7 @@ export const LoginSignup = props => {
         const field = ev.target.name;
         const value = ev.target.value;
         setSignup(prevSignup => ({ ...prevSignup, [field]: value }));
-        if(field === 'companyName') checkCompanyNameAvailability(value)
+        if (field === 'companyName') checkCompanyNameAvailability(value);
     };
     const loginHandleChange = ev => {
         ev.persist();
@@ -126,23 +126,25 @@ export const LoginSignup = props => {
             companyId: chosenCompanyObj.value,
         }));
     };
-    const checkCompanyNameAvailability = async (companyName=signupCred.companyName) => {
+    const checkCompanyNameAvailability = async (
+        companyName = signupCred.companyName
+    ) => {
         console.log(companyName);
-        if (companyName.length < 3) return setIsAvailable(false)
-        const isNameAvailable = await companyService.checkCompanyNameAvailability(companyName)
+        if (companyName.length < 3) return setIsAvailable(false);
+        const isNameAvailable =
+            await companyService.checkCompanyNameAvailability(companyName);
         if (isNameAvailable) {
             console.log(isNameAvailable);
-            return setIsAvailable(true)
+            return setIsAvailable(true);
+        } else {
+            setIsAvailable(false);
         }
-        else{
-            setIsAvailable(false)
+    };
+    const checkNameAvailabilityForSnack = () => {
+        if (!isAvailable) {
+            return notificationHandler.error(snackNameUnavailable);
         }
-    }
-    const checkNameAvailabilityForSnack = () =>{
-        if(!isAvailable){
-            return notificationHandler.error(snackNameUnavailable);   
-        }
-    }
+    };
 
     return (
         <div className="login-signup-page">
@@ -151,7 +153,7 @@ export const LoginSignup = props => {
                     <form action="#" onSubmit={doSignup}>
                         <h1>Create Account</h1>
                         <span>Enter your company's name</span>
-                        <div className='input-name-div'>
+                        <div className="input-name-div">
                             <input
                                 name="companyName"
                                 value={signupCred.companyName}
@@ -160,8 +162,19 @@ export const LoginSignup = props => {
                                 placeholder="Company Name"
                                 onBlur={checkNameAvailabilityForSnack}
                             />
-                            {!isAvailable && signupCred.companyName.length>2 && <img className='unavailable-icon' src='https://res.cloudinary.com/echoshare/image/upload/v1639058758/os-x-svgrepo-com_z2bqms.svg' />}
-                            {isAvailable && signupCred.companyName && <img className='available-icon' src='https://res.cloudinary.com/echoshare/image/upload/v1639046322/check-availability-icon-grey_fxge8a.png' />}
+                            {!isAvailable &&
+                                signupCred.companyName.length > 2 && (
+                                    <img
+                                        className="unavailable-icon"
+                                        src="https://res.cloudinary.com/echoshare/image/upload/v1639058758/os-x-svgrepo-com_z2bqms.svg"
+                                    />
+                                )}
+                            {isAvailable && signupCred.companyName && (
+                                <img
+                                    className="available-icon"
+                                    src="https://res.cloudinary.com/echoshare/image/upload/v1639046322/check-availability-icon-grey_fxge8a.png"
+                                />
+                            )}
                         </div>
                         <Tooltip
                             title="Password must contain at least 8 characters - 1 number and 1 letter"

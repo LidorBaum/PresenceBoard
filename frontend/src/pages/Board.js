@@ -40,7 +40,7 @@ export const Board = props => {
                 loggedCompany._id,
                 filterBy
             );
-            if(res.error)  return notificationHandler.error(res.error.message)
+            if (res.error) return notificationHandler.error(res.error.message);
             if (
                 !res.length &&
                 filterBy.text === '' &&
@@ -68,32 +68,27 @@ export const Board = props => {
 
     const onChangePresence = async employeeId => {
         console.log(employeeId);
-        const res = await employeeService.updateEmployeePresence(
-            employeeId
-        );
-        if(res.error){
-            return notificationHandler.error(res.error.message)
-        }  
-            document
-                .getElementById(`${employeeId}-img`)
-                .classList.toggle('gray');
-            await socket.emit('update_board', {
-                companyId: loggedCompany._id,
-                employeeId: employeeId,
-            });
+        const res = await employeeService.updateEmployeePresence(employeeId);
+        if (res.error) {
+            return notificationHandler.error(res.error.message);
+        }
+        document.getElementById(`${employeeId}-img`).classList.toggle('gray');
+        await socket.emit('update_board', {
+            companyId: loggedCompany._id,
+            employeeId: employeeId,
+        });
 
-            // document.getElementById(`${employeeId}-card`).classList.add('opacity')
-            // setIsDataChanged(!isDataChanged)
-            setTimeout(() => setIsDataChanged(!isDataChanged), 1000);
-        
+        // document.getElementById(`${employeeId}-card`).classList.add('opacity')
+        // setIsDataChanged(!isDataChanged)
+        setTimeout(() => setIsDataChanged(!isDataChanged), 1000);
     };
 
     const refreshBoard = async ({ companyId, employeeId }) => {
         console.log('I NEED TO REFRESH');
         document.getElementById(`${employeeId}`).classList.toggle('gray');
         const res = await employeeService.getAllEmployeesInCompany(companyId);
-        if(res.error){
-            return notificationHandler.error(res.error.message)
+        if (res.error) {
+            return notificationHandler.error(res.error.message);
         }
         console.log(res, 'res');
         setEmployees(res);
