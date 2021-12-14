@@ -14,18 +14,16 @@ function getAllEmployees() {
     return httpService.get('employee');
 }
 
-function getAllEmployeesInCompany(companyId, filterBy, sort = 'board') {
-    console.log(filterBy, sort);
-    if (!filterBy)
-        return httpService.get(`employee/company/${companyId}/${sort}`);
-    if (!filterBy.text && filterBy.presence === null)
-        return httpService.get(`employee/company/${companyId}/${sort}`);
-    if (filterBy.text && !filterBy.presence)
-        return httpService.get(
-            `employee/company/${companyId}/${sort}?text=${filterBy.text}`
-        );
+function getAllEmployeesInCompany(companyId, filterBy, sortBy = 'board') {
+    console.log(filterBy, sortBy);
+
+    const query = Object.keys(filterBy)
+        .filter(key => filterBy[key])
+        .map(key => `${key}=${filterBy[key]}`)
+        .join('&');
+
     return httpService.get(
-        `employee/company/${companyId}/${sort}?text=${filterBy.text}&presence=${filterBy.presence}`
+        `employee/company/${companyId}/${sortBy}?${query}`
     );
 }
 //employee

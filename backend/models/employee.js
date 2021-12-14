@@ -116,8 +116,10 @@ EmployeeSchema.statics.getAllEmployeesInCompany = async function (
     };
     if (filterBy.presence)
         getEmployeeFilters.isPresence = filterBy.presence;
+
     return this.find(getEmployeeFilters).sort({ isPresence: -1, lastScan: -1 });
 };
+
 EmployeeSchema.statics.getById = async function (employeeId) {
     return this.findOne({ _id: employeeId });
 };
