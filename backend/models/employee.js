@@ -10,44 +10,45 @@ const EmployeeSchema = Schema(
             required: true,
             validate: {
                 validator: Libs.Validators.isValidName,
-                message: Libs.Errors.TextValidation.InvalidName
-            }
+                message: Libs.Errors.TextValidation.InvalidName,
+            },
         },
         lastName: {
             type: String,
             required: true,
             validate: {
                 validator: Libs.Validators.isValidName,
-                message: Libs.Errors.TextValidation.InvalidName
-            }
+                message: Libs.Errors.TextValidation.InvalidName,
+            },
         },
         image: {
             type: String,
             required: false,
-            default: "https://res.cloudinary.com/echoshare/image/upload/v1636896856/3219840_ngmgts.png",
+            default:
+                'https://res.cloudinary.com/echoshare/image/upload/v1636896856/3219840_ngmgts.png',
             validate: {
                 validator: Libs.Validators.isValidUrl,
-                message: Libs.Errors.InvalidUrl
-            }
+                message: Libs.Errors.InvalidUrl,
+            },
         },
         company: {
             type: Schema.Types.ObjectId,
-            required: true
+            required: true,
         },
         isPresence: {
             type: Boolean,
             required: false,
-            default: false
+            default: false,
         },
         lastScan: {
             type: Date,
             required: false,
-        }
+        },
     },
     {
         collection: 'employees',
         versionKey: false,
-        timestamps: true
+        timestamps: true,
     }
 );
 
@@ -62,7 +63,6 @@ EmployeeSchema.statics.deleteEmployee = function (employeeId) {
 };
 
 EmployeeSchema.statics.updateEmployee = async function (employeeObj) {
-
     if (!Libs.Validators.isValidUrl(employeeObj.image)) {
         throw new Error(Libs.Errors.InvalidUrl);
     }
@@ -73,13 +73,12 @@ EmployeeSchema.statics.updateEmployee = async function (employeeObj) {
             $set: {
                 image: employeeObj.image,
                 firstName: employeeObj.firstName,
-                lastName: employeeObj.lastName
-            }
+                lastName: employeeObj.lastName,
+            },
         },
         { new: true }
-    )
+    );
 };
-
 
 EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
     const employeeObj = await this.getById(employeeId);
@@ -92,39 +91,46 @@ EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
         {
             $set: {
                 isPresence: Boolean(!employeeObj.isPresence),
-                lastScan: new Date()
-            }
+                lastScan: new Date(),
+            },
         },
         { new: true }
-    )
+    );
 };
 
-EmployeeSchema.statics.getAllEmployeesInCompany = async function (companyId, sort, filterBy) {
-    if(!filterBy.text && !filterBy.presence && sort==='list')     return this.find({ company: companyId }).sort({ updatedAt: -1})
-    const textRegex = new RegExp(filterBy.text || '', 'i')
+EmployeeSchema.statics.getAllEmployeesInCompany = async function (
+    companyId,
+    sort,
+    filterBy
+) {
+    if (!filterBy.text && !filterBy.presence && sort === 'list')
+        return this.find({ company: companyId }).sort({ updatedAt: -1 });
+    const textRegex = new RegExp(filterBy.text || '', 'i');
     let getEmployeeFilters = {
-        company: companyId ,
+        company: companyId,
         $or: [
-                { firstName: { $regex: textRegex } },
-                { lastName : { $regex: textRegex }}
+            { firstName: { $regex: textRegex } },
+            { lastName: { $regex: textRegex } },
         ],
-    }
-    if (filterBy.presence !== null ) getEmployeeFilters.isPresence = filterBy.presence
-    return this.find(getEmployeeFilters).sort({ isPresence: -1, lastScan: -1 })
-
-}
+    };
+    if (filterBy.presence !== null)
+        getEmployeeFilters.isPresence = filterBy.presence;
+    return this.find(getEmployeeFilters).sort({ isPresence: -1, lastScan: -1 });
+};
 EmployeeSchema.statics.getById = async function (employeeId) {
-    return this.findOne({ _id: employeeId })
-}
+    return this.findOne({ _id: employeeId });
+};
 
 EmployeeSchema.statics._setAllPresence = async function (isPresence = true) {
-    return this.updateMany({}, {
-        $set: {
-            isPresence: Boolean(isPresence),
-            lastScan: new Date()
+    return this.updateMany(
+        {},
+        {
+            $set: {
+                isPresence: Boolean(isPresence),
+                lastScan: new Date(),
+            },
         }
-    },
-    )
-}
+    );
+};
 
 exports.EmployeesModel = db.connection.model('Employee', EmployeeSchema);

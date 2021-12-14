@@ -1,3 +1,3 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-export const SnackbarContext = createContext({open: false})
+export const SnackbarContext = createContext({ open: false });

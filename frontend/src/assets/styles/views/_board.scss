@@ -1,19 +1,19 @@
-.board-logo-img{
+.board-logo-img {
     width: 100px;
     display: block;
     margin: 0 auto;
 }
-.filter-container{
+.filter-container {
     // width: 200px;
     display: flex;
     gap: 20px;
     justify-content: center;
     margin: 10px 0px;
-    .presence-select{
+    .presence-select {
         width: 200px;
         height: 30px;
     }
-    .text-search{
+    .text-search {
         height: 38px;
         border-radius: 5px;
         border: 1px solid gray;
@@ -21,24 +21,22 @@
         font-family: montserrat;
         font-size: 1.125rem;
         padding-left: 8px;
-        &::placeholder{
+        &::placeholder {
             font-family: montserrat;
             font-size: 1.125rem;
-            
+
             padding-left: 8px;
         }
     }
-    
-
 }
-.opacity{
+.opacity {
     opacity: 0%;
-        transition: all 1.2s; 
+    transition: all 1.2s;
 }
-.board-container{
+.board-container {
     width: 95vw;
     margin: 0 auto;
-    .board-loader{
+    .board-loader {
         display: flex;
         justify-content: space-around;
     }
@@ -50,7 +48,7 @@
         padding: 5px;
         align-items: center;
         margin: 0 auto;
-        .opacity{
+        .opacity {
             opacity: 0%;
             transition: all 0.5s;
         }
@@ -70,16 +68,16 @@
             align-items: center;
             font-size: 15px;
             cursor: pointer;
-            p{
+            p {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 max-width: 100%;
             }
-            .click-loader{
+            .click-loader {
                 position: absolute;
                 top: 30%;
-                z-index: 2
+                z-index: 2;
             }
             .employee-card-img {
                 width: 90%;
@@ -90,17 +88,14 @@
                 justify-self: center;
                 transition: all 2.2s;
                 overflow: hidden;
-
             }
-            .gray{
+            .gray {
                 filter: grayscale(100%);
-                transition: all 2.2s ;
+                transition: all 2.2s;
             }
-            p{
-                margin-bottom: 3px
+            p {
+                margin-bottom: 3px;
             }
-           
-        
         }
     }
 }

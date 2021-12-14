@@ -1,5 +1,3 @@
-
-
 .header {
     display: flex;
     // border-bottom: 2px solid rgb(124, 124, 124);
@@ -8,7 +6,7 @@
     box-shadow: 5px 5px 8px 5px #bebebebd;
     justify-content: space-between;
     align-items: center;
-    
+
     img {
         padding: 10px;
         height: 80px;
@@ -17,7 +15,7 @@
         margin-inline-start: 15px;
         object-fit: contain;
     }
-    .userIcon{
+    .userIcon {
         width: 50px;
         height: 50px;
         margin-left: 20px;
@@ -25,57 +23,52 @@
         margin-top: 10px;
         padding: 0;
     }
-    .logged{
+    .logged {
         object-fit: cover;
         // filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(135deg) brightness(119%) contrast(119%);
-
     }
-    .company-name{
-        justify-self:flex-end;
+    .company-name {
+        justify-self: flex-end;
     }
-    .links *{
+    .links * {
         display: inline-block;
         margin-inline-end: 30px;
         vertical-align: middle;
         text-decoration: none;
         color: rgb(1, 128, 64);
         transition: all 0.4s;
-        
-        &:hover{
+
+        &:hover {
             color: rgba(23, 202, 178, 0.753);
-            transform: scale(1.08)
+            transform: scale(1.08);
         }
-        &:last-child{
+        &:last-child {
             transform: scale(1);
         }
+    }
 
+    .active {
+        color: rgba(55, 245, 172, 0.753);
     }
-    
-    .active{
-        color:rgba(55, 245, 172, 0.753);
-    }
-    a:last-child{
+    a:last-child {
         margin: 0;
     }
-    .user-div{
+    .user-div {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
         justify-content: center;
-        
-        
-        p{
+
+        p {
             margin: 0;
 
-            &:hover{
+            &:hover {
                 transform: scale(1.05);
-
             }
         }
 
-        img{
+        img {
             margin-left: 5px;
         }
     }
 }
-

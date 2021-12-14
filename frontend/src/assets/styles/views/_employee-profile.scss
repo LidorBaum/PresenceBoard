@@ -1,17 +1,17 @@
-.employee-profile{
+.employee-profile {
     display: flex;
     flex-direction: row;
     padding: 20px;
     gap: 20px;
-    .employee-profile-image{
+    .employee-profile-image {
         width: 250px;
         height: 250px;
         object-fit: contain;
     }
-    .green{
+    .green {
         color: green;
     }
-    .red{
-        color: red
+    .red {
+        color: red;
     }
 }

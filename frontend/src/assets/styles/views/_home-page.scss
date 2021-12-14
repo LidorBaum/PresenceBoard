@@ -1,5 +1,96 @@
-.cta-container{
-    margin: 40px 0;
+.hero {
+    margin: 10px 100px;
     display: flex;
-    justify-content: space-between;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    div {
+        p {
+            text-align: center;
+            font-size: 40px;
+        }
+    }
+    .img-monitor {
+        width: 800px;
+    }
+}
+.seeking {
+    margin: 10px 100px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    div {
+        p {
+            text-align: center;
+            font-size: 40px;
+            margin: 0;
+        }
+    }
+    .img-seeking {
+        width: 800px;
+    }
+}
+.solution {
+    margin: 10px 100px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    div {
+        p {
+            text-align: center;
+            font-size: 40px;
+            margin: 0;
+        }
+    }
+    .img-power {
+        width: 700px;
+    }
+}
+.signup-cta {
+    margin: 10px 100px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    div {
+        p {
+            text-align: center;
+            font-size: 40px;
+            margin: 0;
+        }
+    }
+    .img-signup {
+        width: 700px;
+    }
+}
+.signin-cta {
+    margin: 10px 100px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    div {
+        p {
+            text-align: center;
+            font-size: 40px;
+            margin: 0;
+        }
+    }
+    .img-signin {
+        width: 700px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    div {
+        margin: 0 5px !important;
+    }
+    p {
+        font-size: 20px !important;
+    }
+    img {
+        width: 250px !important;
+    }
 }
