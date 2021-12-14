@@ -120,8 +120,8 @@ async function getAllEmployeesInCompany(req, res) {
     try {
         const { companyId, sort } = req.params;
         const filterBy = {
-            text: req.query.text || null,
-            presence: req.query.presence || null,
+            text: req.query.text ?? null,
+            presence: req.query.presence ?? null,
         };
 
         const employees = await EmployeesModel.getAllEmployeesInCompany(
