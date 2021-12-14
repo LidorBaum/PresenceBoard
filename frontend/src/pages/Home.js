@@ -56,9 +56,9 @@ export const Home = props => {
 
             <div className="signup-cta">
                 <div>
-                    <p>Wanna join?</p>
+                    <p>Wanna join with your company?</p>
                     <Button variant="contained" onClick={onSignup}>
-                        Register your company Now!
+                        Register Now!
                     </Button>
                 </div>
                 <img src={joinURL} className="img-signup" alt="signip" />

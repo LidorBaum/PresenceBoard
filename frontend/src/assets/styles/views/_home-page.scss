@@ -84,13 +84,37 @@
 }
 
 @media screen and (max-width: 700px) {
+    
     div {
         margin: 0 5px !important;
     }
     p {
         font-size: 20px !important;
     }
+    .signin-cta {
     img {
         width: 250px !important;
     }
 }
+    .signup-cta {
+    img {
+        width: 250px !important;
+    }
+}
+    .solution {
+    img {
+        width: 250px !important;
+    }
+}
+    .seeking {
+    img {
+        width: 250px !important;
+    }
+}
+    .hero {
+    img {
+        width: 250px !important;
+    }
+}
+}
+

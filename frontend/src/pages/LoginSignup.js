@@ -141,7 +141,7 @@ export const LoginSignup = props => {
         }
     };
     const checkNameAvailabilityForSnack = () => {
-        if (!isAvailable) {
+        if (!isAvailable && signupCred.companyName) {
             return notificationHandler.error(snackNameUnavailable);
         }
     };

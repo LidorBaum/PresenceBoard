@@ -46,11 +46,10 @@ table {
         border-collapse: collapse;
         position: relative;
         tr {
-            background-color: rgba(255, 100, 255, 0.8);
+            background-color: rgba(255, 100, 255, 0.096);
             position: sticky;
             top: 0;
             th {
-                color: greenyellow;
             }
         }
     }
@@ -87,6 +86,9 @@ td {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 tr {
+    border: 2px solid black;
+    margin-bottom: 2px;
+
     &:hover {
         box-shadow: 0px 2px 8px #626262;
     }
