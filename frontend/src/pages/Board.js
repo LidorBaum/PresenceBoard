@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import companyService from '../services/companyService';
 import { CompanyContext } from '../contexts/CompanyContext';
 import { BoardEmployeeList } from '../cmps/BoardEmployeeList';
 import employeeService from '../services/employeeService';
 import io from 'socket.io-client';
-import SkeletonTheme from '../cmps/SkeletonTheme';
 import Spin from 'react-cssfx-loading/lib/Spin';
 import Select from 'react-select';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
@@ -24,7 +22,7 @@ const socket = io(baseURL);
 export const Board = props => {
     let history = useHistory();
     const notificationHandler = useContext(SnackbarHandlerContext);
-    const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
+    const { loggedCompany } = useContext(CompanyContext);
     const [employees, setEmployees] = useState(null);
     const [isDataChanged, setIsDataChanged] = useState(false);
     const [filterBy, setFilterBy] = useState({
@@ -35,7 +33,6 @@ export const Board = props => {
     useEffect(() => {
         const getEmployees = async () => {
             if (!loggedCompany) return;
-            // document.getElementById('board-container').classList.toggle('opacity')
             const res = await employeeService.getAllEmployeesInCompany(
                 loggedCompany._id,
                 filterBy
@@ -50,13 +47,6 @@ export const Board = props => {
                 return history.push('/company');
             }
             setEmployees(res);
-            // setTimeout(()=>{
-            //   setEmployees(res)
-            //   // document.getElementById('board-container').classList.toggle('opacity')
-            // },600)
-            // console.log(res, 'res');
-
-            // socket.emit('board_page', loggedCompany._id)
         };
         getEmployees();
     }, [loggedCompany, isDataChanged, filterBy]);
@@ -67,7 +57,6 @@ export const Board = props => {
     }, [loggedCompany]);
 
     const onChangePresence = async employeeId => {
-        console.log(employeeId);
         const res = await employeeService.updateEmployeePresence(employeeId);
         if (res.error) {
             return notificationHandler.error(res.error.message);
@@ -78,19 +67,15 @@ export const Board = props => {
             employeeId: employeeId,
         });
 
-        // document.getElementById(`${employeeId}-card`).classList.add('opacity')
-        // setIsDataChanged(!isDataChanged)
         setTimeout(() => setIsDataChanged(!isDataChanged), 1000);
     };
 
     const refreshBoard = async ({ companyId, employeeId }) => {
-        console.log('I NEED TO REFRESH');
         document.getElementById(`${employeeId}`).classList.toggle('gray');
         const res = await employeeService.getAllEmployeesInCompany(companyId);
         if (res.error) {
             return notificationHandler.error(res.error.message);
         }
-        console.log(res, 'res');
         setEmployees(res);
     };
     const [selectedOption, setSelectedOption] = useState(null);
@@ -135,7 +120,6 @@ export const Board = props => {
                     />
                 </div>
             </div>
-            {/* <img alt='logo' className='board-logo-img' src={loggedCompany.logo}></img> */}
             <div id="board-container" className="board-container">
                 {employees ? (
                     <BoardEmployeeList

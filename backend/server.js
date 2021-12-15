@@ -33,7 +33,6 @@ app.use(
 );
 
 if (process.env.NODE_ENV === 'production') {
-    console.log('it is production environment');
     app.use(express.static(path.resolve(__dirname, 'public')));
 } else {
     const corsOptions = {
@@ -63,5 +62,4 @@ app.get('/**', (req, res) => {
 });
 
 const port = process.env.PORT || 4444;
-// app.listen(port, () => console.log(`Listening on port ${port}...`));
 http.listen(port, () => console.log(`Listening on port ${port}...`));

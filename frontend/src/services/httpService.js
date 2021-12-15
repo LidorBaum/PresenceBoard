@@ -1,12 +1,10 @@
 import Axios from 'axios';
-const { baseURL, env } = require('../config');
+const { baseURL } = require('../config');
 
 const API_URL = `${baseURL}/api/`;
 const axios = Axios.create({
     withCredentials: true,
 });
-
-// axios.defaults.withCredentials = true;
 
 export default {
     get(endpoint, data) {

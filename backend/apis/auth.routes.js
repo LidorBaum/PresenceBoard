@@ -10,7 +10,6 @@ router.post('/logout', logout);
 
 function responseError(response, errMessage) {
     let status;
-    console.log(errMessage);
     switch (errMessage) {
         case Libs.Errors.CompanyValidation.CompanyDoesNotExists:
             status = 404;
@@ -36,7 +35,6 @@ async function login(req, res) {
     const { companyId, password } = req.body;
     try {
         const company = await authService.login(companyId, password);
-        // console.log(company, 'company that trying to log');
         req.session.company = company._id;
         const returnedCompany = {
             _id: company._id,

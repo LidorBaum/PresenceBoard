@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { CompanyContext } from '../contexts/CompanyContext.js';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import Tooltip from '@mui/material/Tooltip';
-
 import Select from 'react-select';
 import companyService from '../services/companyService.js';
 import { isValidPassword } from '../services/utils.js';
@@ -50,7 +49,6 @@ export const LoginSignup = props => {
                 return notificationHandler.error(res.error.message);
             }
             const companiesMap = [];
-            console.log(res);
             res.forEach(company => {
                 companiesMap.push({ label: company.name, value: company._id });
             });
@@ -129,12 +127,10 @@ export const LoginSignup = props => {
     const checkCompanyNameAvailability = async (
         companyName = signupCred.companyName
     ) => {
-        console.log(companyName);
         if (companyName.length < 3) return setIsAvailable(false);
         const isNameAvailable =
             await companyService.checkCompanyNameAvailability(companyName);
         if (isNameAvailable) {
-            console.log(isNameAvailable);
             return setIsAvailable(true);
         } else {
             setIsAvailable(false);
@@ -211,7 +207,6 @@ export const LoginSignup = props => {
                             type="password"
                             placeholder="Password"
                         />
-                        {/* <a href="#">Forgot your password?</a> */}
                         <button disabled={isLoading}>Sign In</button>
                     </form>
                 </div>

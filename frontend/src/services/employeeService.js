@@ -15,18 +15,13 @@ function getAllEmployees() {
 }
 
 function getAllEmployeesInCompany(companyId, filterBy, sortBy = 'board') {
-    console.log(filterBy, sortBy);
-
     const query = Object.keys(filterBy)
         .filter(key => filterBy[key] !== null && filterBy[key] !== '')
         .map(key => `${key}=${filterBy[key]}`)
         .join('&');
 
-    return httpService.get(
-        `employee/company/${companyId}/${sortBy}?${query}`
-    );
+    return httpService.get(`employee/company/${companyId}/${sortBy}?${query}`);
 }
-//employee
 function getEmployeeById(employeeId) {
     return httpService.get(`employee/${employeeId}`);
 }

@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 export function BoardEmployeePreview({ emp, onChangePresence }) {
     const [isLoading, setIsLoading] = useState(false);
     const onChangePresenceClick = async employeeId => {
-        console.log('HERE?');
         setIsLoading(true);
         await onChangePresence(employeeId);
         return setIsLoading(false);

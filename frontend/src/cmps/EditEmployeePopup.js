@@ -73,7 +73,6 @@ export const EditEmployeePopup = ({
             notificationHandler.success(snackEmployeeSaved);
             handleClose('update');
         } else {
-            console.log(('Empl to add:', employee));
             const newEmployeeObj = await employeeService.addEmployee(employee);
             if (newEmployeeObj.error) {
                 notificationHandler.error(newEmployeeObj.error.message);
@@ -120,17 +119,13 @@ export const EditEmployeePopup = ({
                                 InputProps={{ readOnly: true }}
                             />
                         </div>
-                        {/* <input minLength="3" required type='text' name='firstName' value={empForm.firstName} placeholder="Employee First Name" onChange={handleChange} /> */}
-                        {/* <input minLength="3" required type='text' name='lastName' value={empForm.lastName} placeholder="Employee Last Name" onChange={handleChange} /> */}
                         <div className="form-img">
                             <label htmlFor="img-input">
-                                {/* {/* <div className={'img-upload'} /} */}
                                 <img
                                     alt="profile img"
                                     className="primary-img"
                                     src={primaryImgUrl}
                                 />
-                                {/* </div> */}
                                 <input
                                     id="img-input"
                                     hidden
@@ -147,7 +142,6 @@ export const EditEmployeePopup = ({
                     >
                         {employeeToEdit._id ? 'Save' : 'Add'}
                     </Button>
-                    {/* <img src={}></img> */}
                 </div>
             </div>
         </div>

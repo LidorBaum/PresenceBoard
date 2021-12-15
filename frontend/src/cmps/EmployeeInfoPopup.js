@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '@mui/material';
 
 export const EmployeeInfoPopup = ({ employee, handleClose, notifyCopyNFC }) => {
-    console.log(notifyCopyNFC);
     const onCopyNFC = () => {
         navigator.clipboard.writeText(
             `https://presence-board-echo.herokuapp.com/api/employee/presence/${employee._id}`
@@ -30,6 +29,7 @@ export const EmployeeInfoPopup = ({ employee, handleClose, notifyCopyNFC }) => {
                 </span>
                 <div className="employee-profile">
                     <img
+                        alt="profile"
                         className="employee-profile-image"
                         src={employee.image}
                     />

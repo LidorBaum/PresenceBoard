@@ -20,7 +20,6 @@ function checkCompanyNameAvailability(companyName) {
     return httpService.get(`company/name/${companyName}`);
 }
 
-//company
 function getCompanyById(companyId) {
     return httpService.get(`company/${companyId}`);
 }
@@ -47,7 +46,6 @@ async function logoutCompany() {
     sessionStorage.clear();
 }
 function _handleLoginCompany(company) {
-    console.log(company, 'login handle company');
     sessionStorage.setItem('company', JSON.stringify(company));
     return company;
 }

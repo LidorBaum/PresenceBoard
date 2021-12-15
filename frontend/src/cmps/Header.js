@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { CompanyContext } from '../contexts/CompanyContext';
-import Cookies from 'js-cookie';
 import { useHistory } from 'react-router-dom';
 import companyService from '../services/companyService';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
@@ -16,7 +15,6 @@ export function Header(props) {
     const onLogout = async () => {
         const res = await companyService.logoutCompany();
         if (res?.error) return notificationHandler.error(res.error.message);
-        console.log('I am here');
         setLoggedCompany(null);
         history.push('/');
     };

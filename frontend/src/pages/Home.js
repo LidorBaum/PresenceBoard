@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import companyService from '../services/companyService';
-import { CompanyContext } from '../contexts/CompanyContext';
 import { Button } from '@mui/material';
 const monitorURL =
     'https://res.cloudinary.com/echoshare/image/upload/v1639472363/Monitor-amico_y3qtgo.svg';
@@ -14,7 +12,6 @@ const joinURL =
 const signinURL =
     'https://res.cloudinary.com/echoshare/image/upload/v1639474054/Mobile_login-amico_eyriw3.svg';
 export const Home = props => {
-    const { loggedCompany } = useContext(CompanyContext);
     let history = useHistory();
 
     const onLogin = () => {
@@ -29,7 +26,6 @@ export const Home = props => {
             <div className="hero">
                 <img src={monitorURL} className="img-monitor" alt="monitor" />
                 <div>
-                    {/* <h1>Welcome to Presence Board</h1> */}
                     <p>Welcome to</p>
                     <p>Presence Board</p>
                 </div>
@@ -55,9 +51,19 @@ export const Home = props => {
             </div>
 
             <div className="signup-cta">
-                <div className='cta-text'>
+                <div className="cta-text">
                     <p>Wanna join with your company?</p>
-                    <Button color='success' style={{maxWidth: '200px', maxHeight: '50px', minWidth: '30px', minHeight: '30px'}} variant="contained" onClick={onSignup}>
+                    <Button
+                        color="success"
+                        style={{
+                            maxWidth: '200px',
+                            maxHeight: '50px',
+                            minWidth: '30px',
+                            minHeight: '30px',
+                        }}
+                        variant="contained"
+                        onClick={onSignup}
+                    >
                         Register Now!
                     </Button>
                 </div>
@@ -66,9 +72,19 @@ export const Home = props => {
 
             <div className="signin-cta">
                 <img src={signinURL} className="img-signin" alt="signin" />
-                <div className='cta-text'>
+                <div className="cta-text">
                     <p>Already joined?</p>
-                    <Button color='success' style={{maxWidth: '200px', maxHeight: '50px', minWidth: '30px', minHeight: '30px'}} variant="contained" onClick={onLogin}>
+                    <Button
+                        color="success"
+                        style={{
+                            maxWidth: '200px',
+                            maxHeight: '50px',
+                            minWidth: '30px',
+                            minHeight: '30px',
+                        }}
+                        variant="contained"
+                        onClick={onLogin}
+                    >
                         Log in now!
                     </Button>
                 </div>
