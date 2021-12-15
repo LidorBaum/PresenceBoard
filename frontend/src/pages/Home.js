@@ -55,9 +55,9 @@ export const Home = props => {
             </div>
 
             <div className="signup-cta">
-                <div>
+                <div className='cta-text'>
                     <p>Wanna join with your company?</p>
-                    <Button variant="contained" onClick={onSignup}>
+                    <Button color='success' style={{maxWidth: '200px', maxHeight: '50px', minWidth: '30px', minHeight: '30px'}} variant="contained" onClick={onSignup}>
                         Register Now!
                     </Button>
                 </div>
@@ -66,9 +66,9 @@ export const Home = props => {
 
             <div className="signin-cta">
                 <img src={signinURL} className="img-signin" alt="signin" />
-                <div>
+                <div className='cta-text'>
                     <p>Already joined?</p>
-                    <Button variant="contained" onClick={onLogin}>
+                    <Button color='success' style={{maxWidth: '200px', maxHeight: '50px', minWidth: '30px', minHeight: '30px'}} variant="contained" onClick={onLogin}>
                         Log in now!
                     </Button>
                 </div>
