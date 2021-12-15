@@ -64,7 +64,7 @@ export const CompanyProfile = props => {
             });
             const res = await employeeService.getAllEmployeesInCompany(
                 loggedCompany._id,
-                null,
+                {},
                 'list'
             );
             if (res.error) {
