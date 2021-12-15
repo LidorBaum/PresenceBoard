@@ -20,7 +20,6 @@ function App() {
         if (loggedCompany) return;
         if (Cookies.get('loggedCompany')) {
             const jsonStr = Cookies.get('loggedCompany').slice(2);
-            console.log(JSON.parse(jsonStr));
             setLoggedCompany(JSON.parse(jsonStr));
         }
     }, [loggedCompany]);

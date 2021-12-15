@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
-import Zoom from '@mui/material/Zoom';
-import { SnackbarContext } from '../contexts/SnackbarContext';
-
-// import Button from '@mui/material/Button';
 
 export function EmployeePreview({
     emp,
