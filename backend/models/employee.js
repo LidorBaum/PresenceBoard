@@ -100,11 +100,12 @@ EmployeeSchema.statics.updateIsPresence = async function (employeeId) {
 
 EmployeeSchema.statics.getAllEmployeesInCompany = async function (
     companyId,
-    sort,
+    sortType,
     filterBy
 ) {
-    if (!filterBy.text && !filterBy.presence && sort === 'list')
+    if (sortType === 'list')
         return this.find({ company: companyId }).sort({ updatedAt: -1 });
+
     const textRegex = new RegExp(filterBy.text || '', 'i');
     let getEmployeeFilters = {
         company: companyId,
@@ -113,10 +114,12 @@ EmployeeSchema.statics.getAllEmployeesInCompany = async function (
             { lastName: { $regex: textRegex } },
         ],
     };
-    if (filterBy.presence !== null)
+    if (filterBy.presence)
         getEmployeeFilters.isPresence = filterBy.presence;
+
     return this.find(getEmployeeFilters).sort({ isPresence: -1, lastScan: -1 });
 };
+
 EmployeeSchema.statics.getById = async function (employeeId) {
     return this.findOne({ _id: employeeId });
 };
