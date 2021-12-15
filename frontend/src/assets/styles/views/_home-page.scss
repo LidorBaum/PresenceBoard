@@ -82,14 +82,13 @@
         width: 700px;
     }
 }
-.cta-text{
+.cta-text {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 @media screen and (max-width: 700px) {
-    
     div {
         margin: 0 5px !important;
     }
@@ -97,29 +96,28 @@
         font-size: 20px !important;
     }
     .signin-cta {
-    img {
-        width: 250px !important;
+        img {
+            width: 250px !important;
+        }
     }
-}
     .signup-cta {
-    img {
-        width: 250px !important;
+        img {
+            width: 250px !important;
+        }
     }
-}
     .solution {
-    img {
-        width: 250px !important;
+        img {
+            width: 250px !important;
+        }
     }
-}
     .seeking {
-    img {
-        width: 250px !important;
+        img {
+            width: 250px !important;
+        }
     }
-}
     .hero {
-    img {
-        width: 250px !important;
+        img {
+            width: 250px !important;
+        }
     }
 }
-}
-

@@ -31,7 +31,6 @@ employeeRouter.put('/edit/:employeeId([A-Fa-f0-9]{24})', updateEmployee);
 
 function responseError(response, errMessage) {
     let status = 500;
-    console.log('ERROR');
     switch (errMessage) {
         case Libs.Errors.CompanyValidation.CompanyDoesNotExists:
             status = 404;
@@ -103,7 +102,6 @@ async function deleteEmployee(req, res) {
     try {
         const { employeeId } = req.params;
         const result = await EmployeesModel.deleteEmployee(employeeId);
-        console.log(employeeId);
         if (result.deletedCount === 0) {
             return responseError(
                 res,

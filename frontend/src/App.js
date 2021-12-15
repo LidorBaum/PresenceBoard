@@ -41,7 +41,6 @@ function App() {
     };
 
     const showNotification = (severity, message) => {
-        console.log('I AM SHOWING NOTIFICATION FROM ROOT');
         const snackObj = { severity, message, open: true };
         if (snack.open) {
             setSnack(prevSnack => {

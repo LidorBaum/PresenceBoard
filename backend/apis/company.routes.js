@@ -36,17 +36,6 @@ function responseError(response, errMessage) {
     return response.status(status).send(errMessage);
 }
 
-// async function addCompany(req, res) {
-//     try {
-//         console.log("TEST", req);
-//         const company = await CompaniesModel.createCompany(req.body);
-//         return res.send(company);
-//     } catch (err) {
-//         console.log(err);
-//         return responseError(res, err.message);
-//     }
-// }
-
 async function checkNameAvailability(req, res) {
     try {
         const isAvailable = await CompaniesModel.checkNameAvailability(
@@ -92,7 +81,6 @@ async function editCompany(req, res) {
 
 async function getCompanies(req, res) {
     try {
-        // console.log('retrieving comps');
         const companies = await CompaniesModel.getCompanies();
         return res.send(companies);
     } catch (err) {

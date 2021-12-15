@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { CompanyContext } from '../contexts/CompanyContext';
-import { SnackbarContext } from '../contexts/SnackbarContext';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { EditEmployeePopup } from '../cmps/EditEmployeePopup';
 import employeeService from '../services/employeeService';
@@ -9,11 +8,8 @@ import { EmployeeInfoPopup } from '../cmps/EmployeeInfoPopup';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { EditCompanyPopup } from '../cmps/EditCompanyPopup';
-import { ClickAwayListener } from '@mui/material';
-import Modal from '@mui/material/Modal';
 import { snackLinkCopied, snackDeletedEmployee } from '../snackMessages';
 import Spin from 'react-cssfx-loading/lib/Spin';
-const { modalUnstyledClasses } = require('@mui/base');
 
 export const CompanyProfile = props => {
     const notificationHandler = useContext(SnackbarHandlerContext);
@@ -24,7 +20,6 @@ export const CompanyProfile = props => {
     const [isCompanyEditOpen, setIsCompanyEditOpen] = useState(false);
     const [isRefresh, setDoRefresh] = useState(false);
     const handleClickAway = () => {
-        console.log('I NEED TO CLOSE NOW');
         setIsCompanyEditOpen(false);
         setIsEmpEditOpen(false);
         setisEmpInfoOpen(false);
@@ -152,7 +147,6 @@ export const CompanyProfile = props => {
                     <div className="img-label">Click to edit</div>
                 </div>
             </div>
-            {/* {isEmpEditOpen && <Modal open={isEmpEditOpen} onClose={toggleEmployeePopup} ><div>Modal</div> </Modal>}  */}
             {isEmpEditOpen && (
                 <EditEmployeePopup
                     handleClickAway={handleClickAway}

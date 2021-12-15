@@ -5,7 +5,6 @@ function isValidCompanyName(companyName) {
 }
 
 function isValidName(employeeName) {
-    console.log(employeeName, 'validity check');
     return true;
 }
 

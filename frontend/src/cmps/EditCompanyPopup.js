@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { uploadImg } from '../services/cloudinaryService';
-import employeeService from '../services/employeeService';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -48,7 +47,6 @@ export const EditCompanyPopup = ({
     const onUpdateCompany = async e => {
         e.preventDefault();
         setIsLoading(true);
-        console.log(companyForm, 'company form');
         if (!companyForm.logo) {
             setIsLoading(false);
             return notificationHandler.warning(snackNoImg);
@@ -90,11 +88,8 @@ export const EditCompanyPopup = ({
                                 onChange={handleChange}
                             />
                         </div>
-                        {/* <input minLength="3" required type='text' name='firstName' value={empForm.firstName} placeholder="Employee First Name" onChange={handleChange} /> */}
-                        {/* <input minLength="3" required type='text' name='lastName' value={empForm.lastName} placeholder="Employee Last Name" onChange={handleChange} /> */}
                         <div className="company-form-img">
                             <label htmlFor="img-input">
-                                {/* {/* <div className={'img-upload'} /} */}
                                 <Tooltip
                                     title="Click To Change Logo"
                                     arrow
@@ -106,7 +101,6 @@ export const EditCompanyPopup = ({
                                         src={companyForm.logo}
                                     />
                                 </Tooltip>
-                                {/* </div> */}
                                 <input
                                     id="img-input"
                                     hidden
@@ -123,7 +117,6 @@ export const EditCompanyPopup = ({
                     >
                         Save
                     </Button>
-                    {/* <img src={}></img> */}
                 </div>
             </div>
         </div>

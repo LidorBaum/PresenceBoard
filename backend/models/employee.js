@@ -114,8 +114,7 @@ EmployeeSchema.statics.getAllEmployeesInCompany = async function (
             { lastName: { $regex: textRegex } },
         ],
     };
-    if (filterBy.presence)
-        getEmployeeFilters.isPresence = filterBy.presence;
+    if (filterBy.presence) getEmployeeFilters.isPresence = filterBy.presence;
 
     return this.find(getEmployeeFilters).sort({ isPresence: -1, lastScan: -1 });
 };
