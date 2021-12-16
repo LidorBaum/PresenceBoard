@@ -46,15 +46,16 @@ table {
         border-collapse: collapse;
         position: relative;
         tr {
-            background-color: rgba(255, 100, 255, 0.096);
+            background-color: rgba(125, 228, 188, 0.808);
             position: sticky;
             top: 0;
+            
         }
     }
 }
 th {
     padding: 20px 5px;
-    text-align: left;
+    text-align: center;
     font-weight: 500;
     font-size: 12px;
     color: black;
@@ -62,10 +63,10 @@ th {
 }
 td {
     padding: 15px;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
     font-weight: 300;
-    font-size: 12px;
+    // font-size: 12px;
     color: black;
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     button {
@@ -99,6 +100,19 @@ tr {
     height: 40px;
     object-fit: cover;
     border-radius: 15px;
+}
+
+@media screen and (max-width: 700px) {
+
+    .info-logo{
+        align-items: center;
+        h1{
+        font-size: 1.5rem;
+        }
+        h2{
+            font-size: 1.2rem;
+        }
+    }
 }
 
 // .employee-list {

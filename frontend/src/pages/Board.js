@@ -72,7 +72,11 @@ export const Board = props => {
 
     const refreshBoard = async ({ companyId, employeeId }) => {
         document.getElementById(`${employeeId}`).classList.toggle('gray');
-        const res = await employeeService.getAllEmployeesInCompany(companyId);
+        setFilterBy({
+            text: '',
+            presence: null,
+        })
+        const res = await employeeService.getAllEmployeesInCompany(companyId, {}, 'board');
         if (res.error) {
             return notificationHandler.error(res.error.message);
         }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { CompanyContext } from '../contexts/CompanyContext';
 import { SnackbarHandlerContext } from '../contexts/SnackbarHandlerContext';
 import { EditEmployeePopup } from '../cmps/EditEmployeePopup';
@@ -13,8 +14,9 @@ import Spin from 'react-cssfx-loading/lib/Spin';
 
 export const CompanyProfile = props => {
     const notificationHandler = useContext(SnackbarHandlerContext);
+    let history = useHistory();
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
-
+    if(!loggedCompany) history.push('/')
     const [isEmpEditOpen, setIsEmpEditOpen] = useState(false);
     const [isEmpInfoOpen, setisEmpInfoOpen] = useState(false);
     const [isCompanyEditOpen, setIsCompanyEditOpen] = useState(false);

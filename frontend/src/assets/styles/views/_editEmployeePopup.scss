@@ -83,3 +83,10 @@
 .info-close-icon {
     right: 14%;
 }
+
+@media screen and (max-width: 700px) {
+    .employee-profile{
+        display: flex;
+        flex-direction: column;
+    }
+}
