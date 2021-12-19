@@ -19,7 +19,7 @@ You can also visit the Heroku app at https://presence-board-echo.herokuapp.com/#
 (Please allow a few seconds for the server to start)
 
 
-
+***
 ### Technologies / Framework:
 
 -   Framework: ReactJs
@@ -27,3 +27,5 @@ You can also visit the Heroku app at https://presence-board-echo.herokuapp.com/#
 -   Database: MongoDB
 -   SocketIO for on-Demand websocket
 -   MaterialUI for styled elements
+
+This app is deployed automatically to Heroku when PR being merged to main by Gihtub Actions
