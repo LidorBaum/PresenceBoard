@@ -10,9 +10,15 @@ to run this project locally:
 1. run 'npm i' on both frontend and backend folders
 2. on the frontend folder: run 'npm run start-dev'
 3. on the backend folder: run 'npm run server:dev'
+4. go to http://localhost:3000/
+
+To update the presence status, you can use the URL provided by the website (Copy NFC LINK - in Company Profile page, or Employee Info popup) directly, <br />
+or you can encode an NFC chip that directs to this URL.
 
 You can also visit the Heroku app at https://presence-board-echo.herokuapp.com/#/ <br/>
 (Please allow a few seconds for the server to start)
+
+
 
 ### Technologies / Framework:
 
