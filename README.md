@@ -28,4 +28,4 @@ You can also visit the Heroku app at https://presence-board-echo.herokuapp.com/#
 -   SocketIO for on-Demand websocket
 -   MaterialUI for styled elements
 
-This app is deployed automatically to Heroku when PR being merged to main by Gihtub Actions
+This app is deployed automatically to Heroku when PR is being merged to main by Gihtub Actions
