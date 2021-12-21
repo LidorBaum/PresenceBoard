@@ -53,20 +53,24 @@ export const Home = props => {
             <div className="signup-cta">
                 <div className="cta-text">
                     <p>Wanna join with your company?</p>
-                    {window.innerWidth > 900 && <Button
-                        color="success"
-                        style={{
-                            maxWidth: '200px',
-                            maxHeight: '50px',
-                            minWidth: '30px',
-                            minHeight: '30px',
-                        }}
-                        variant="contained"
-                        onClick={onSignup}
-                    >
-                        Register Now!
-                    </Button>}
-                    {window.innerWidth < 900 && <p>Please switch to desktop and join now!</p>}
+                    {window.innerWidth > 900 && (
+                        <Button
+                            color="success"
+                            style={{
+                                maxWidth: '200px',
+                                maxHeight: '50px',
+                                minWidth: '30px',
+                                minHeight: '30px',
+                            }}
+                            variant="contained"
+                            onClick={onSignup}
+                        >
+                            Register Now!
+                        </Button>
+                    )}
+                    {window.innerWidth < 900 && (
+                        <p>Please switch to desktop and join now!</p>
+                    )}
                 </div>
                 <img src={joinURL} className="img-signup" alt="signip" />
             </div>
@@ -75,20 +79,24 @@ export const Home = props => {
                 <img src={signinURL} className="img-signin" alt="signin" />
                 <div className="cta-text">
                     <p>Already joined?</p>
-                    {window.innerWidth > 900 && <Button
-                        color="success"
-                        style={{
-                            maxWidth: '200px',
-                            maxHeight: '50px',
-                            minWidth: '30px',
-                            minHeight: '30px',
-                        }}
-                        variant="contained"
-                        onClick={onLogin}
-                    >
-                        Log in now!
-                    </Button>}
-                    {window.innerWidth < 900 && <p>Please switch to desktop and login now!</p>}
+                    {window.innerWidth > 900 && (
+                        <Button
+                            color="success"
+                            style={{
+                                maxWidth: '200px',
+                                maxHeight: '50px',
+                                minWidth: '30px',
+                                minHeight: '30px',
+                            }}
+                            variant="contained"
+                            onClick={onLogin}
+                        >
+                            Log in now!
+                        </Button>
+                    )}
+                    {window.innerWidth < 900 && (
+                        <p>Please switch to desktop and login now!</p>
+                    )}
                 </div>
             </div>
         </>

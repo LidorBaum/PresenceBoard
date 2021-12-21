@@ -16,7 +16,7 @@ export const CompanyProfile = props => {
     const notificationHandler = useContext(SnackbarHandlerContext);
     let history = useHistory();
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
-    if(!loggedCompany) history.push('/')
+    if (!loggedCompany) history.push('/');
     const [isEmpEditOpen, setIsEmpEditOpen] = useState(false);
     const [isEmpInfoOpen, setisEmpInfoOpen] = useState(false);
     const [isCompanyEditOpen, setIsCompanyEditOpen] = useState(false);

@@ -75,8 +75,12 @@ export const Board = props => {
         setFilterBy({
             text: '',
             presence: null,
-        })
-        const res = await employeeService.getAllEmployeesInCompany(companyId, {}, 'board');
+        });
+        const res = await employeeService.getAllEmployeesInCompany(
+            companyId,
+            {},
+            'board'
+        );
         if (res.error) {
             return notificationHandler.error(res.error.message);
         }

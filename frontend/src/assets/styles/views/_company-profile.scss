@@ -49,7 +49,6 @@ table {
             background-color: rgba(125, 228, 188, 0.808);
             position: sticky;
             top: 0;
-            
         }
     }
 }
@@ -103,13 +102,12 @@ tr {
 }
 
 @media screen and (max-width: 700px) {
-
-    .info-logo{
+    .info-logo {
         align-items: center;
-        h1{
-        font-size: 1.5rem;
+        h1 {
+            font-size: 1.5rem;
         }
-        h2{
+        h2 {
             font-size: 1.2rem;
         }
     }

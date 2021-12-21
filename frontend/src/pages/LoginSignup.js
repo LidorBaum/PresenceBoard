@@ -17,9 +17,9 @@ export const LoginSignup = props => {
     if (loggedCompany) history.push('/board');
     const [isLoading, setIsLoading] = useState(false);
     const notificationHandler = useContext(SnackbarHandlerContext);
-    if(window.innerWidth < 900 ){
-        notificationHandler.warning('This app is compatible with desktop only')
-        history.push('/')
+    if (window.innerWidth < 900) {
+        notificationHandler.warning('This app is compatible with desktop only');
+        history.push('/');
     }
 
     const signupButton = useRef(null);

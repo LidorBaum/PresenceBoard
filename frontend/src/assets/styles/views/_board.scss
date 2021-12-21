@@ -100,10 +100,10 @@
     }
 }
 @media screen and (max-width: 700px) {
-.filter-container{
-    flex-direction: column;
-    *{
-        width: 80vw;
+    .filter-container {
+        flex-direction: column;
+        * {
+            width: 80vw;
+        }
     }
-}
 }

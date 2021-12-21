@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import  { Redirect }  from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import { CompanyContext } from './contexts/CompanyContext';
 import { SnackbarContext } from './contexts/SnackbarContext';
 import { SnackbarHandlerContext } from './contexts/SnackbarHandlerContext';
@@ -98,7 +98,7 @@ function App() {
                                         component={CompanyProfile}
                                     />
                                     {/* <Route path="/" component={About} exact/> */}
-                                    <Redirect from='*' to='/' />
+                                    <Redirect from="*" to="/" />
                                 </Switch>
                             </div>
                             {/* <Footer /> */}
