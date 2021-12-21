@@ -13,11 +13,14 @@ import {
 } from '../snackMessages.js';
 export const LoginSignup = props => {
     let history = useHistory();
-
     const { loggedCompany, setLoggedCompany } = useContext(CompanyContext);
     if (loggedCompany) history.push('/board');
     const [isLoading, setIsLoading] = useState(false);
     const notificationHandler = useContext(SnackbarHandlerContext);
+    if(window.innerWidth < 900 ){
+        notificationHandler.warning('This app is compatible with desktop only')
+        history.push('/')
+    }
 
     const signupButton = useRef(null);
     const [companies, setCompanies] = useState(null);

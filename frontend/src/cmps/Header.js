@@ -54,9 +54,6 @@ export function Header(props) {
                         Sign In
                     </NavLink>
                 )}
-                <NavLink activeClassName="active" to={'/about'}>
-                    About
-                </NavLink>
                 {loggedCompany && (
                     <NavLink
                         activeClassName="inactive"
