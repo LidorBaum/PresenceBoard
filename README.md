@@ -11,7 +11,7 @@ to run this project locally:
 2. on the frontend folder: run 'npm run start-dev'
 3. on the backend folder: run 'npm run server:dev'
 4. go to http://localhost:3000/
-
+5. Login credentials for demo: Company: Bat-Yam, Password: 123
 To update the presence status, you can use the URL provided by the website (Copy NFC LINK - in Company Profile page, or Employee Info popup) directly, <br />
 or you can encode an NFC chip that directs to this URL.
 
